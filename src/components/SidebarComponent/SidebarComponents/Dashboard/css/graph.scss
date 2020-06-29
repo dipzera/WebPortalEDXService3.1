@@ -1,0 +1,81 @@
+.graph {
+  padding: 4rem 0;
+
+  border-bottom: 1px solid white;
+}
+
+.graph__inner {
+  display: flex;
+
+  @media screen and (max-width: 1171px) {
+    flex-wrap: wrap;
+  }
+}
+
+.graph-item {
+  margin: 0 auto;
+  flex-basis: 40%;
+
+  &:not(:last-child) {
+    border-right: 1px solid white;
+    padding-right: 5rem;
+  }
+
+  &:last-child {
+    padding-top: 3rem;
+  }
+
+  @media screen and (max-width: 1171px) {
+    flex-basis: 100%;
+    width: 350px;
+  }
+
+}
+
+.graph-item__select {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+
+  &-title {
+    font-family: $source-sans-pro;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $gray;
+  }
+
+  &-options {
+    button {
+      cursor: pointer;
+      background: none;
+      border: 0;
+
+      font-family: $source-sans-pro;
+      font-size: 16px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    button:first-child {
+      position: relative;
+    }
+
+    button:first-child:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -1px;
+      z-index: 1;
+
+      width: 1px;
+      height: 100%;
+      background: black;
+    }
+  }
+
+}
+
+

@@ -1,0 +1,67 @@
+@import 'colors';
+@import 'helper';
+@import 'form';
+@import 'fonts';
+
+/* CSS that covers more components */
+@import "filter";
+@import "table";
+@import "product";
+
+/* Home Page */
+@import '../components/Home/css/header';
+@import '../components/Home/css/sidebar';
+@import '../components/Home/css/home';
+@import "../components/Home/css/flex-container.scss";
+
+/* Dashboard */
+@import "../components/SidebarComponent/SidebarComponents/Dashboard/css/balance";
+@import "../components/SidebarComponent/SidebarComponents/Dashboard/css/credentials";
+@import "../components/SidebarComponent/SidebarComponents/Dashboard/css/dashboard_invoice";
+@import "../components/SidebarComponent/SidebarComponents/Dashboard/css/dashboard";
+@import "../components/SidebarComponent/SidebarComponents/Dashboard/css/graph";
+
+
+/* Register Page*/
+@import "../components/Register/css/confirm-modal.scss";
+@import "../components/Register/css/register.scss";
+
+
+/* Product Page */
+@import "../components/Product/css/product.scss";
+@import "../components/Product/css/invoiceRejectionModal.scss";
+@import "../components/Product/css/table.scss";
+
+/* 404 Page */
+@import "../components/NotFound/css/not-found.scss";
+
+
+html {
+  font-size: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, ul, p {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 100%;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
+

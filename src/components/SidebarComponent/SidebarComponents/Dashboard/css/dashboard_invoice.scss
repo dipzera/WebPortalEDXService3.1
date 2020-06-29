@@ -1,0 +1,101 @@
+.dashboard__invoice {
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem 2rem;
+  border-bottom: 1px solid white;
+}
+
+.invoice-col {
+
+  padding-right: 6rem;
+
+  &:not(:last-child) {
+    border-right: 1px solid white;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: space-between;
+
+    width: 130px;
+    max-width: 100%;
+    background: white;
+    border-radius: 8px;
+    border: 0;
+    box-shadow: $box-shadow;
+
+    font-family: $roboto;
+    font-size: 14px;
+    color: #4D4F5C;
+    cursor: pointer;
+
+    padding: .5rem 1.5rem;
+    margin-top: 4rem;
+
+    transition: transform .3s cubic-bezier(.25,.75,.5,1.25);
+
+    text-decoration: none;
+    color: #4D4F5C;
+
+    img {
+      width: 15px;
+      height: 15px;
+    }
+
+    &:hover {
+      transform: translateX(3px);
+    }
+  }
+}
+
+
+.invoice-col__title {
+  font-family: $source-sans-pro;
+  font-size: 18px;
+  font-weight: 700;
+  color: $gray;
+  margin-bottom: 1rem;
+}
+
+.invoice-col__status {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+
+
+  &-text {
+    font-family: $source-sans-pro;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+  }
+
+  &-number {
+    font-family: $source-sans-pro;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+#totalText {
+  font-size: 18px;
+}
+
+
+
+#pending {
+  color: $pending;
+}
+
+#in_process {
+  color: $process;
+}
+
+#confirmed {
+  color: $confirmed;
+}
+
+#total {
+  color: $total;
+}

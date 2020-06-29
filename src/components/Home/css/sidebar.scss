@@ -1,0 +1,71 @@
+.sidebar {
+  width: 20%;
+  position: fixed;
+  min-height: 100vh;
+  left: 0;
+  z-index: 1;
+  background-color: $dark-blue;
+}
+
+.sidebar-inner {
+
+}
+
+.sidebar-inner__profile {
+  background: $black;
+  text-align: center;
+
+  img {
+    margin-top: -3.5rem;
+  }
+  &-name {
+    font-size: 24px;
+    color: white;
+
+    margin-top: -4rem;
+    padding-bottom: .5rem;
+  }
+  &-title {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: $gray;
+
+    padding-bottom: 8rem;
+
+    span {
+      color: $light-green;
+      font-weight: 400;
+      padding-left: .8rem;
+    }
+  }
+}
+
+.sidebar-inner__nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  ul {
+    padding: 3rem 0 0 2rem;
+    color: white;
+    li {
+      list-style: none;
+      padding-bottom: 1.5rem;
+      a {
+        text-decoration: none;
+        transition: color .5s linear;
+        color: white;
+
+        &.active {
+          color: $light-green;
+        }
+
+        &:hover {
+          cursor: pointer;
+          color: $light-green;
+        }
+      }
+    }
+  }
+
+}

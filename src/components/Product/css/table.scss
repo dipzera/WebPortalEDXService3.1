@@ -1,0 +1,43 @@
+.product-container {
+  border-radius: 10px;
+  overflow-y: auto;
+  background-color: $tablehead;
+  max-height: 400px;
+
+  table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+
+    th {
+      font-family: $roboto;
+      font-size: 15px;
+      color: $light-green;
+      line-height: 1.4;
+      text-transform: uppercase;
+      background: $tablehead;
+      padding: 1rem 3rem;
+
+      text-align: left;
+
+      &:not(:first-child) {
+        text-align: center;
+      }
+
+    }
+
+    td:not(:first-child) {
+      text-align: center;
+    }
+
+
+    td {
+      background-color: $tablebody;
+      color: $tabletext;
+      padding: 1.5rem 3rem;
+    }
+  }
+}
+
+
