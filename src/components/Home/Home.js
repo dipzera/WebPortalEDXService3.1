@@ -15,7 +15,7 @@ export const HomeComponent = {
                     <div class="sidebar-inner">
                       <div class="sidebar-inner__profile"> 
                         <img src="src/img/avatar.png" class="avatar" alt="Avatar">
-                        <div class="sidebar-inner__profile-name">Vlad Gorea</div>
+                        <div class="sidebar-inner__profile-name">${JSON.parse(localStorage.getItem('CommercialName'))}</div>
                         <div class="sidebar-inner__profile-title">Admin<span class="level">level 1</span></div>
                       </div>
                       

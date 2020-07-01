@@ -1,6 +1,7 @@
 import { toggleButtonState } from "../../../Home/toggleButtonState";
 import { getReceivedInvoiceList } from "../../../../server/getReceivedInvoiceList";
 import { convertDate, convertDateWithHour } from "../../../../js/util/dateConverter";
+import { renderComponentTable } from "../../renderComponentTable";
 
 export const ReceivedInvoice = {
     render: async (main) => {
@@ -25,10 +26,10 @@ export const ReceivedInvoice = {
                         <div class="filter-item"> 
                             <div class="filter-item__status"> 
                                 <ul class="filter-item__status-list">
-                                    <li><a class="filter-item__status-text">Toate</a></li>
-                                    <li><a class="filter-item__status-text">În proces</a></li>
-                                    <li><a class="filter-item__status-text">În așteptare</a></li>
-                                    <li><a class="filter-item__status-text">Confirmate</a></li>
+                                    <li class="filter-item__status-list-btn active" id="total"><a class="filter-item__status-text">All</a></li>
+                                    <li class="filter-item__status-list-btn" id="pending"><a class="filter-item__status-text">Pending</a></li>
+                                    <li class="filter-item__status-list-btn" id="rejected"><a class="filter-item__status-text">Rejected</a></li>
+                                    <li class="filter-item__status-list-btn" id="accepted"><a class="filter-item__status-text">Accepted</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -76,37 +77,28 @@ export const ReceivedInvoice = {
 
         main.innerHTML = `${html}`;
 
-        /* Toggle button state of sidebar element */
         const link = document.querySelector('#received-invoice');
+        const tableBody = document.querySelector('table tbody');
+        const component = link.id;
+
+        /* Toggle state color of component links (sidebar) */
         toggleButtonState(link);
 
-
         /* Render table list items */
-        //  TODO => Wrap this into a function and call it here, to give possibility of creating a loading spinner and show data at full load
-        const data = await getReceivedInvoiceList('2000-01-01', '2100-01-01');
-        let table = '';
-        data.InvoiceList.forEach(list => {
-            const listLines = JSON.stringify(list.Lines);
-            table += `
-                <tr data-href="/product" data-lines='${listLines.replace(/'/g, "\~")}'> 
-                    <td><span class="status">${list.Number}</span></td>
-                    <td>${convertDateWithHour(list.CreateDate).split(' ')[0]}<span class="hour"><img src="./src/img/clock.svg" alt="Clock">${convertDateWithHour(list.CreateDate).split(' ')[1]}</span></td>
-                    <td>${convertDate(list.Date)}</td>
-                    <td>${convertDate(list.DeliveryDate)}</td>
-                    <td>${list.SenderName}</td>
-                    <td>În proces</td>
-                </tr>
-            `;
-        });
-        document.querySelector('table tbody').innerHTML = table;
+        try {
+            renderComponentTable(await getReceivedInvoiceList('2000-01-01', '2100-01-01'), tableBody, component, );
+        } catch (error) {
+            renderComponentTable(await getReceivedInvoiceList('2000-01-01', '2100-01-01'), tableBody, component);
+        }
+
 
         /* Render product page when clicking table element */
         document.querySelectorAll('table tbody tr').forEach(row => row.addEventListener('click', function() {
             const dataLines = JSON.parse(this.dataset.lines.replace(/~/g, "\'"));
-            history.pushState({dataLines}, document.title, window.location += this.dataset.href);
-        }));
-
-
+            const status = this.dataset.status;
+            const number = this.dataset.number;
+            history.pushState({dataLines, status, number}, document.title, window.location += this.dataset.href);
+        }))
 
 
     }

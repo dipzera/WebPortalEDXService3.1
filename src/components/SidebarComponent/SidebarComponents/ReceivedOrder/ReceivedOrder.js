@@ -1,6 +1,10 @@
 import { toggleButtonState } from "../../../Home/toggleButtonState";
 import {getReceivedOrders} from "../../../../server/getReceivedOrders";
 import { convertDate } from "../../../../js/util/dateConverter";
+import { renderComponentTable } from "../../renderComponentTable";
+import {getReceivedInvoiceList} from "../../../../server/getReceivedInvoiceList";
+import {getSentInvoiceList} from "../../../../server/getSentInvoiceList";
+
 
 export const ReceivedOrder = {
     render: async (main) => {
@@ -28,10 +32,10 @@ export const ReceivedOrder = {
                         <div class="filter-item"> 
                             <div class="filter-item__status"> 
                                 <ul class="filter-item__status-list">
-                                    <li><a class="filter-item__status-text">Toate</a></li>
-                                    <li><a class="filter-item__status-text">În proces</a></li>
-                                    <li><a class="filter-item__status-text">În așteptare</a></li>
-                                    <li><a class="filter-item__status-text">Confirmate</a></li>
+                                    <li class="filter-item__status-list-btn active" id="total"><a class="filter-item__status-text">All</a></li>
+                                    <li class="filter-item__status-list-btn" id="pending"><a class="filter-item__status-text">Pending</a></li>
+                                    <li class="filter-item__status-list-btn" id="rejected"><a class="filter-item__status-text">Rejected</a></li>
+                                    <li class="filter-item__status-list-btn" id="accepted"><a class="filter-item__status-text">Accepted</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -75,29 +79,26 @@ export const ReceivedOrder = {
         `;
         main.innerHTML = `${html}`;
         const link = document.querySelector('#received-order');
+        const tableBody = document.querySelector('table tbody');
+        const component = link.id;
+        console.log(component);
+
+        /* Toggle state color of component links */
         toggleButtonState(link);
 
         /* Render table list items */
-        //  TODO => Wrap this into a function and call it here, to give possibility of creating a loading spinner and show data at full load
-        const data = await getReceivedOrders('2000-01-01', '2100-01-01');
-        let table = '';
-        data.OrderList.forEach(list => {
-            const listLines = JSON.stringify(list.Lines);
-            table += `
-                <tr data-href="/product" data-lines='${listLines.replace(/'/g, "\~")}'> 
-                    <td><span class="status">${list.Number}</span></td>
-                    <td>${convertDate(list.Date)}</td>
-                    <td>${convertDate(list.DeliveryDate)}</td>
-                </tr>
-            `;
-        });
-        document.querySelector('table tbody').innerHTML = table;
+        try {
+            renderComponentTable(await getReceivedOrders('2000-01-01', '2100-01-01'), tableBody, component);
+        } catch (error) {
+            console.error(error);
+        }
 
+
+        /* Render product page when clicking table element */
         document.querySelectorAll('table tbody tr').forEach(row => row.addEventListener('click', function() {
             const dataLines = JSON.parse(this.dataset.lines.replace(/~/g, "\'"));
             history.pushState({dataLines}, document.title, window.location += this.dataset.href);
         }))
-
 
 
     },

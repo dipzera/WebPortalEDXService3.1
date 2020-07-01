@@ -3,6 +3,10 @@ import { toggleButtonState } from "../Home/toggleButtonState";
 import { renderProductTable, fixTableHeader } from "./renderProductTable";
 import { renderInvoiceRejectionModal } from "./renderInvoiceRejectionModal";
 import {NotFoundComponent} from "../NotFound/NotFound";
+import { setInvoiceState } from "../../server/setInvoiceState";
+import { setOrderState } from "../../server/setOrderState";
+
+import { checkInputs } from "../FormValidation/checkInputs";
 
 export const ProductComponent = {
     main: (component) => {
@@ -86,11 +90,14 @@ export const ProductComponent = {
                 <div class="rejection"> 
                     <div class="rejection__inner"> 
                         <h4 class="rejection__title">Reason of invoice rejection:</h4>
-                        <textarea class="rejection__textarea"></textarea>
-                        <div class="rejection-buttons"> 
-                            <button class="product__btn accept" id="ok">OK</button>
-                            <button class="product__btn deny" id="cancel">Renunță</button>
-                        </div>
+                        <form class="rejection__form">
+                            <textarea name="textarea" class="rejection__textarea" required></textarea>
+                            <div class="rejection-buttons"> 
+                                <button class="product__btn accept" type="submit" id="ok">OK</button>
+                                <button class="product__btn deny" type="button" id="cancel">Renunță</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
                 
@@ -108,19 +115,41 @@ export const ProductComponent = {
             history.pushState(null, null, window.location = '#/404');
         }
 
+        // console.log(history.state.status, history.state.number);
+
         /* Fix header table */
         document.querySelectorAll('.product-container').forEach(el => el.addEventListener('scroll', fixTableHeader));
 
         /* Render Invoice Rejection Modal */
         renderInvoiceRejectionModal(document.querySelector('#rejectBtn'), document.querySelector('.rejection'), document.querySelector('#cancel'));
 
+        if (history.state.status == 100 || history.state.status == 2) {
+            document.querySelector('.product-buttons').style.display = 'none';
+        }
+
+        /* Accept invoice/order button */
+        document.querySelector('#acceptBtn').addEventListener('click', async function() {
+            const statusAccepted = 2;
+            if (invoiceComponent) {
+                await setInvoiceState(history.state.number, statusAccepted);
+            } else if (orderComponent) {
+                await setOrderState(history.state.number, statusAccepted);
+            }
+            /* After accept get user back to component */
+            history.pushState(null, null, window.location = `#/${component}`);
+        })
+
+        /* Ok button confirm reject */
+        document.querySelector('.rejection__form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const statusReject = 100;
+            if (invoiceComponent) {
+                await setInvoiceState(history.state.number, statusReject, this.textarea.value);
+            } else if (orderComponent) {
+                await setOrderState(history.state.number, statusReject, this.textarea.value);
+            }
+            history.pushState(null, null, window.location = `#/${component}`);
+        })
 
     },
-    goBack: () => {
-        // Go Back Button functionality
-        document.getElementById('goBack').addEventListener('click', function() {
-            history.pushState({}, document.title, window.location = `#/${this.dataset.href}`);
-        });
-    },
-
 }

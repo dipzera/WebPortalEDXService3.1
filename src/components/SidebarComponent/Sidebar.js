@@ -25,9 +25,7 @@ export const Sidebar = {
     render: () => {
         const main = document.querySelector('.main');
         if (window.location.hash === '#/received-invoice') {
-                setTimeout(() => {
-                ReceivedInvoice.render(main);
-            }, 0);
+            ReceivedInvoice.render(main);
         } else if (window.location.hash === '#/dashboard') {
             Dashboard.render(main);
         } else if (window.location.hash === '#/sent-invoice') {

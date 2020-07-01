@@ -25,10 +25,14 @@
     padding-top: 3rem;
   }
 
-  @media screen and (max-width: 1171px) {
-    flex-basis: 100%;
-    width: 350px;
-  }
+  //@media screen and (max-width: 1171px) {
+  //  flex-basis: 100%;
+  //  width: 350px;
+  //}
+
+}
+
+.graph-item__chart {
 
 }
 
@@ -59,23 +63,19 @@
       }
     }
 
-    button:first-child {
-      position: relative;
-    }
 
-    button:first-child:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -1px;
-      z-index: 1;
 
-      width: 1px;
-      height: 100%;
-      background: black;
-    }
   }
 
+}
+
+.invoice-btns,
+.order-btns {
+  outline: none;
+  &.active {
+    border: 1px solid $black;
+    border-radius: 2px;
+  }
 }
 
 

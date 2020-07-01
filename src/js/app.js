@@ -36,7 +36,7 @@ router.on('/:component', function(component) {
 })
 
 router.on('/:component/product', function(component) {
-    app.innerHTML = ProductComponent.main(component), ProductComponent.render(component), ProductComponent.goBack();
+    app.innerHTML = ProductComponent.main(component), ProductComponent.render(component);
 })
 
 router.on('/login', function() {

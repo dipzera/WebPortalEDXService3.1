@@ -49,6 +49,12 @@
         border-bottom-right-radius: 10px;
       }
 
+      &.active {
+        background: $black;
+        a {
+          color: white;
+        }
+      }
       &:hover {
         background: $black;
         a {

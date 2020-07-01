@@ -2,7 +2,7 @@
   border-radius: 10px;
   overflow-y: auto;
   background-color: $tablehead;
-  max-height: 400px;
+  max-height: 330px;
 
   table {
     width: 100%;
@@ -29,6 +29,7 @@
 
     td:not(:first-child) {
       text-align: center;
+      padding-left: 30px;
     }
 
 
@@ -38,6 +39,11 @@
       padding: 1.5rem 3rem;
     }
   }
+}
+
+.numspan {
+  width: 100px;
+  text-align: right !important;
 }
 
 

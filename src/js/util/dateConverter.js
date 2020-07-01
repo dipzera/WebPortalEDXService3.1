@@ -12,4 +12,11 @@ function convertDateWithHour(dateToConvert) {
     return date;
 }
 
-export { convertDate, convertDateWithHour };
+function convertDateMilliseconds(dateToConvert) {
+    let d = dateToConvert.substr(6, 13).toString();
+    let MyDate = new Date(d * 1);
+    let date = MyDate.getTime();
+    return date;
+}
+
+export { convertDate, convertDateWithHour, convertDateMilliseconds };

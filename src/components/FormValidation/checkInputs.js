@@ -5,7 +5,7 @@ import { isEmail } from './isEmail';
 function checkInputs(regForm) {
     const bicValue = regForm.BIC.value.trim();
     const bankValue = regForm.Bank.value.trim();
-    const commValue = regForm.CommercialName.value.trim();
+    let commValue = regForm.CommercialName.value.trim();
     // CountryID: '',
     const emailValue = regForm.Email.value.trim();
     const ibanValue = regForm.IBAN.value.trim();
@@ -40,15 +40,16 @@ function checkInputs(regForm) {
         setSuccessFor(regForm.Bank);
     }
 
-    if (commValue === '') {
-        // show error
-        // add error class
-        setErrorFor(regForm.CommercialName, 'Campul nu trebuie sa fie gol');
-        check = false;
-    } else {
-        // add success class
-        setSuccessFor(regForm.CommercialName);
-    }
+    // if (commValue === '') {
+    //     // show error
+    //     // add error class
+    //     // setErrorFor(regForm.CommercialName, 'Campul nu trebuie sa fie gol');
+    //     commValue === juridicalNameValue;
+    //     check = false;
+    // } else {
+    //     // add success class
+    //     setSuccessFor(regForm.CommercialName);
+    // }
 
     if (emailValue === '') {
         // show error

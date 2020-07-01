@@ -24,11 +24,11 @@ const RegisterComponent = {
                   <h2 class="register-form__subtitle form__subtitle">Pentru un cont nou, completeză campurile de mai jos:</h2>
                   <div class="register-form__group form__group">
                     <input type="text" placeholder="Denumire comerciala" name="CommercialName">
-                    <div class="error-handling">
-                      <i class="fas fa-exclamation-circle"></i>
-                      <i class="fas fa-check-circle"></i>
-                      <small class="error">Error message</small>
-                    </div>
+<!--                    <div class="error-handling">-->
+<!--                      <i class="fas fa-exclamation-circle"></i>-->
+<!--                      <i class="fas fa-check-circle"></i>-->
+<!--                      <small class="error">Error message</small>-->
+<!--                    </div>-->
                   </div>
                   
                   <div class="register-form__group form__group">

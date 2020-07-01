@@ -1,4 +1,3 @@
-import {NotFoundComponent} from "../NotFound/NotFound";
 
 export function renderProductTable(table, tablelist, invoice, order) {
 
@@ -27,12 +26,12 @@ export function renderProductTable(table, tablelist, invoice, order) {
             html += `
             <tr> 
                 <td class="column1">${list.Name}</td>
-                <td class="column2 bodycol">${list.Quantity}</td>
-                <td class="column3 bodycol">${list.PriceNet.toFixed(2)}</td>
-                <td class="column4 bodycol">${list.TotalSumNet.toFixed(2)}</td>
-                <td class="column5 bodycol">${list.VATPercent}%</td>
-                <td class="column6 bodycol">${list.TotalVAT.toFixed(2)}</td>
-                <td class="column7 bodycol"><strong>${list.TotalSum}</strong></td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
             </tr>
         `;
             table.querySelector('tbody').innerHTML = html;
@@ -57,10 +56,10 @@ export function renderProductTable(table, tablelist, invoice, order) {
             `;
             html += `
            <tr> 
-               <td class="column1 bodycol">${list.Name}</td>
-               <td class="column2 bodycol">${list.Quantity}</td>
-               <td class="column3 bodycol">${list.Price}</td>
-               <td class="column4 bodycol">${list.Code}</td>
+               <td class="column1">${list.Name}</td>
+               <td class="column2">${list.Quantity}</td>
+               <td class="column3">${list.Price}</td>
+               <td class="column4">${list.Code}</td>
            </tr>
         `;
             table.querySelector('tbody').innerHTML = html;

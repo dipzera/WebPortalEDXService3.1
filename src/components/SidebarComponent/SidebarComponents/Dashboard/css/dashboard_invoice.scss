@@ -84,18 +84,30 @@
 
 
 
-#pending {
+#pendingReceivedInvoice,
+#pendingSentInvoice,
+#pendingReceivedOrder,
+#pendingSentOrder {
   color: $pending;
 }
 
-#in_process {
+#unloadedReceivedInvoice,
+#unloadedSentInvoice,
+#unloadedReceivedOrder,
+#unloadedSentOrder {
   color: $process;
 }
 
-#confirmed {
+#acceptedReceivedInvoice,
+#acceptedSentInvoice,
+#acceptedReceivedOrder,
+#acceptedSentOrder {
   color: $confirmed;
 }
 
-#total {
+#totalReceivedInvoice,
+#totalSentInvoice,
+#totalReceivedOrder,
+#totalSentOrder {
   color: $total;
 }

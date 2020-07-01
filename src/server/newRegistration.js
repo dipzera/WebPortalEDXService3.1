@@ -3,6 +3,7 @@ import { emailConfirm } from "./emailConfirm";
 
 async function newRegistration(regForm) {
     let regUrl = new URL("https://api.efactura.md:4445/WebPortalEDXService/json/NewRegistration");
+    let commName = regForm.CommercialName.value ? null : regForm.CommercialName.value = regForm.JuridicalName.value;
     let options = {
         method: "POST",
         headers: {
@@ -11,11 +12,12 @@ async function newRegistration(regForm) {
         body: JSON.stringify({
             BIC: regForm.BIC.value,
             Bank: regForm.Bank.value,
-            CommercialName: regForm.CommercialName.value,
+            CommercialName: commName,
             CountryID: regForm.CountryID.value,
             Email: regForm.Email.value,
             IBAN: regForm.IBAN.value,
             IDNO: regForm.IDNO.value,
+            JuridicalName: regForm.JuridicalName.value,
             JuridicalAddress: regForm.JuridicalAddress.value,
             Language: regForm.Language.value,
             // Logo: '',
