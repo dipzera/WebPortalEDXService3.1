@@ -7,7 +7,6 @@ async function getSentInvoiceList(start, end) {
     try {
         const response = await fetch(sentURL);
         const data = await response.json();
-        console.log('Sent invoice: ', data);
         return data;
     } catch(error) {
         console.log(error);

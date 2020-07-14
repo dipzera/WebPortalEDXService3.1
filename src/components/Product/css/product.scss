@@ -37,9 +37,11 @@
 
 
 .product-buttons {
-  margin-top: 3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
   text-align: right;
-  padding: 2rem 3rem;
+  padding: 4rem 3rem;
 
 }
 
@@ -79,4 +81,46 @@
       background: #af7777;
     }
   }
+}
+
+
+.scroll-up {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    z-index: 1000;
+    width: 55px;
+    height: 55px;
+    color: #fff;
+    cursor: pointer;
+    visibility: hidden;
+    border-radius: 50%;
+    opacity: 0;
+    transition: .2s;
+    transform: translateY(25px);
+    background: rgba(89, 245, 188, .6);
+
+    &:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        content: '↑';
+    }
+
+    &:hover {
+        background: rgba(89, 245, 188, 1);
+    }
+
+    &--active {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
 }

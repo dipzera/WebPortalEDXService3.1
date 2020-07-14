@@ -9,19 +9,11 @@ const RegisterComponent = {
           <div class="register-body form-body">
             <div class="register-container form-container"> 
               
-              <!-- Modal confirm register pop up-->
-              <div class="confirm-modal" style="display: none;">
-                <div class="confirm-modal__container">
-                  <span class="confirm-modal__message">V-ati inregistrat cu succes!<br>
-                  Pentru a continua, confirmati inregistrarea pe email-ul dvs!</span> 
-                </div> 
-              </div>
-            
             
               <div class="register-wrapper form-wrapper"> 
                 <form class="register-form form" autocomplete="off"> 
                   <h1 class="resister-form__title form__title">Înregistrează-te acum!</h1>
-                  <h2 class="register-form__subtitle form__subtitle">Pentru un cont nou, completeză campurile de mai jos:</h2>
+<!--                  <h2 class="register-form__subtitle form__subtitle">Pentru un cont nou, completeză campurile de mai jos:</h2>-->
                   <div class="register-form__group form__group">
                     <input type="text" placeholder="Denumire comerciala" name="CommercialName">
 <!--                    <div class="error-handling">-->
@@ -32,7 +24,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="JuridicalName" placeholder="Denumire juridica">
+                    <input type="text" name="JuridicalName" placeholder="Denumire juridică (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -41,7 +33,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="IDNO" placeholder="IDNO">
+                    <input type="text" name="IDNO" placeholder="IDNO (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -50,7 +42,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="Email" placeholder="E-mail">
+                    <input type="text" name="Email" placeholder="Adresă de email (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -59,7 +51,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="JuridicalAddress" placeholder="Adresa juridica">
+                    <input type="text" name="JuridicalAddress" placeholder="Adresă juridică (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -68,7 +60,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="OfficeAddress" placeholder="Adresa fizica">
+                    <input type="text" name="OfficeAddress" placeholder="Adresă fizică (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -77,7 +69,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="Bank" placeholder="Banca">
+                    <input type="text" name="Bank" placeholder="Banca (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -86,7 +78,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="IBAN" placeholder="IBAN">
+                    <input type="text" name="IBAN" placeholder="IBAN (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -95,7 +87,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="BIC" placeholder="B.I.C">
+                    <input type="text" name="BIC" placeholder="B.I.C (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -104,7 +96,7 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="text" name="VATCode" placeholder="Codul TVA">
+                    <input type="text" name="VATCode" placeholder="Codul TVA (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
@@ -114,14 +106,14 @@ const RegisterComponent = {
                   
                   <div class="register-form__group form__group select">
                   <div>
-                    <span class="register-form__select-txt">Alegeti limba</span>
+                    <span class="register-form__select-txt">Alegeți limba</span>
                       <select class="register-form__select-txt" name="Language"> 
                         <option value="ro">Romana</option>
                         <option value="ru">Rusa</option>
                       </select>
                     </div>
                     <div>
-                      <span class="register-form__select-txt">Alegeti tara</span>
+                      <span class="register-form__select-txt">Alegeți tara</span>
                       <select class="register-form__select-txt" name="CountryID"> 
                         <!-- Countries from server-->
                       </select>
@@ -129,19 +121,22 @@ const RegisterComponent = {
                   </div>
                   
                   <div class="register-form__group form__group">
-                    <input type="password" name="password" placeholder="Parola">
+                    <input type="password" name="password" placeholder="Parola (*)">
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
                       <i class="fas fa-check-circle"></i>
                       <small class="error">Error message</small>
                     </div>
                   </div>
-                  
-                  <button class="form__btn" type="submit">Creează cont</button>
-                  <p> 
+                  <input class="register-form__btn form__btn" type="submit" value="Creează cont">
+                  <div class="register-form__message"> 
+                    V-ați înregistrat cu succes, pentru a confirma datele introduse, accesați email-ul dumneavoastră!
+                  </div>
+                  <div class="form__footer"> 
                     <a href="#/login">Deja ai un cont?</a>
-                  </p>
+                  </div>
                 </form>
+                
               </div>
             </div>
           </div>

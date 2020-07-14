@@ -8,15 +8,24 @@
   <title>WebPortal EDX Service 3.0</title>
   <script src="https://kit.fontawesome.com/558245dc7f.js" crossorigin="anonymous"></script>
   <script src="https://smtpjs.com/v3/smtp.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;700&family=Lexend+Zetta&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div id="spinner">
+  <div class="spinner-container">
+    <img class="spinner__img" src="./img/spinner.svg" alt="Spinner">
+  </div>
+</div>
+<script type="text/javascript">
+  window.addEventListener('load', function() {
+    const spinner = document.querySelector('#spinner');
+    spinner.classList.add('hidden');
+  })
+</script>
 
 <section id="app">
-
 </section>
 
-<!-- Regenerator run time error fix (babel) -->
-<script src="https://unpkg.com/regenerator-runtime@0.13.1/runtime.js"></script>
+
 </body>
 </html>

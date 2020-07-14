@@ -19,14 +19,14 @@
     text-align: center;
     tr {
       cursor: pointer;
-      display: none;
-      transition: transform .1s ease-in-out;
+      //display: none;
+      transition: background .2s ease-in-out;
 
-      &.show {
-        display: table-row;
-      }
+      //&.show {
+      //  display: table-row;
+      //}
       &:hover {
-        transform: scale(.95);
+        background: #E9EBEC;
 
       }
       td {

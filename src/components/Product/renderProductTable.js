@@ -1,3 +1,7 @@
+import { localization } from "../../js/util/localization";
+
+let current_lang = JSON.parse(localStorage.getItem('Language'));
+
 
 export function renderProductTable(table, tablelist, invoice, order) {
 
@@ -9,13 +13,13 @@ export function renderProductTable(table, tablelist, invoice, order) {
                 <table>
                 <thead> 
                     <tr> 
-                        <th class="column1">Denumire</th>
-                        <th class="column2">Cantitate</th>
-                        <th class="column3">Preț unitar (fără TVA)</th>
-                        <th class="column4">Valoarea totală (fără TVA)</th>
-                        <th class="column5">TVA</th>
-                        <th class="column6">Suma totală a TVA</th>
-                        <th class="column7">Suma Totală</th>
+                        <th class="column1">${localization[current_lang].product.table.Name}</th>
+                        <th class="column2">${localization[current_lang].product.table.Quantity}</th>
+                        <th class="column3">${localization[current_lang].product.table.PriceNet}</th>
+                        <th class="column4">${localization[current_lang].product.table.SumNet}</th>
+                        <th class="column5">${localization[current_lang].product.table.VAT}</th>
+                        <th class="column6">${localization[current_lang].product.table.TotalVAT}</th>
+                        <th class="column7">${localization[current_lang].product.table.TotalSUM}</th>
                     </tr>
                 </thead>
                     <tbody> 
@@ -23,6 +27,8 @@ export function renderProductTable(table, tablelist, invoice, order) {
                     </tbody>
                 </table>
             `;
+            /* FIXME [ FIX this later, this is done for test purpose ] */
+
             html += `
             <tr> 
                 <td class="column1">${list.Name}</td>
@@ -33,6 +39,188 @@ export function renderProductTable(table, tablelist, invoice, order) {
                 <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
                 <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
             </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr><tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr><tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr><tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            <tr> 
+                <td class="column1">${list.Name}</td>
+                <td class="column2">${list.Quantity}</td>
+                <td class="column3 numspan">${list.PriceNet.toFixed(2)}</td>
+                <td class="column4 numspan">${list.TotalSumNet.toFixed(2)}</td>
+                <td class="column5 numspan">${list.VATPercent}%</td>
+                <td class="column6 numspan">${list.TotalVAT.toFixed(2)}</td>
+                <td class="column7 numspan"><strong>${list.TotalSum}</strong></td>
+            </tr>
+            
+            
+            
+            
+            
         `;
             table.querySelector('tbody').innerHTML = html;
         })

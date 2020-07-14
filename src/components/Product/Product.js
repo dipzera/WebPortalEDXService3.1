@@ -5,6 +5,11 @@ import { renderInvoiceRejectionModal } from "./renderInvoiceRejectionModal";
 import {NotFoundComponent} from "../NotFound/NotFound";
 import { setInvoiceState } from "../../server/setInvoiceState";
 import { setOrderState } from "../../server/setOrderState";
+import { scrollToTop } from "./scrollToTop";
+
+import { localization } from "../../js/util/localization";
+
+let current_lang = JSON.parse(localStorage.getItem('Language'));
 
 import { checkInputs } from "../FormValidation/checkInputs";
 
@@ -40,37 +45,29 @@ export const ProductComponent = {
             <div class="product">
                 <div class="container"> 
                 
-                    <a class="product__btn-back" id="goBack" href="#/${component}"><span><img src="src/img/arrow-left.svg"/></span>Înapoi</a>
+                    <a class="product__btn-back" id="goBack" href="#/${component}"><span><img src="src/img/arrow-left.svg"/></span>${localization[current_lang].product.header.BackButton}</a>
                     
                     <!-- Credentials -->
                     <div class="credentials"> 
                         <div class="credentials-col"> 
                             <dl class="credentials-col__info"> 
-                                <dt>Account Manager:</dt>
-                                <dd>Nicolae Suman</dd>
+                                <dt>${localization[current_lang].product.header.SenderName}:</dt>
+                                <dd id="SenderName">${history.state.senderName}</dd>
                             </dl>
                             <dl class="credentials-col__info"> 
-                                <dt>Email:</dt>
-                                <dd>nicolaesuman@gmail.com</dd>
-                            </dl>
-                            <dl class="credentials-col__info"> 
-                                <dt>Telefon:</dt>
-                                <dd>+971 50 2259 235</dd>
+                                <dt>${localization[current_lang].product.header.DeliveryDate}:</dt>
+                                <dd id="DeliveryDate">${history.state.deliveryDate}</dd>
                             </dl>
                         </div>
                         
                         <div class="credentials-col"> 
                             <dl class="credentials-col__info"> 
-                                <dt>RTA Trade License:</dt>
-                                <dd>9982-2456-7811</dd>
+                                <dt>${localization[current_lang].product.header.Number}:</dt>
+                                <dd id="Number">${history.state.invoiceNumber}</dd>
                             </dl>
                             <dl class="credentials-col__info"> 
-                                <dt>Membership ID:</dt>
-                                <dd>0012559</dd>
-                            </dl>
-                            <dl class="credentials-col__info"> 
-                                <dt>On boarder:</dt>
-                                <dd>Nick Reynolds</dd>
+                                <dt>${localization[current_lang].product.header.Date}:</dt>
+                                <dd id="Date">${history.state.date}</dd>
                             </dl>
                         </div>
                     </div>
@@ -82,19 +79,22 @@ export const ProductComponent = {
 
                 <!-- Buttons -->
                 <div class="product-buttons"> 
-                    <button class="product__btn  accept" id="acceptBtn">ACCEPTĂ</button>
-                    <button class="product__btn  deny" id="rejectBtn">REFUZĂ</button>
+                    <button class="product__btn  accept" id="acceptBtn">${localization[current_lang].product.header.AcceptButton}</button>
+                    <button class="product__btn  deny" id="rejectBtn">${localization[current_lang].product.header.DenyButton}</button>
+                </div>
+                
+                <div class="scroll-up active"> 
                 </div>
                 
                 <!-- Rejection modal -->
                 <div class="rejection"> 
                     <div class="rejection__inner"> 
-                        <h4 class="rejection__title">Reason of invoice rejection:</h4>
+                        <h4 class="rejection__title">${localization[current_lang].product.modal.title}:</h4>
                         <form class="rejection__form">
                             <textarea name="textarea" class="rejection__textarea" required></textarea>
                             <div class="rejection-buttons"> 
-                                <button class="product__btn accept" type="submit" id="ok">OK</button>
-                                <button class="product__btn deny" type="button" id="cancel">Renunță</button>
+                                <button class="product__btn accept" type="submit" id="ok">${localization[current_lang].product.modal.AcceptButton}</button>
+                                <button class="product__btn deny" type="button" id="cancel">${localization[current_lang].product.modal.DenyButton}</button>
                             </div>
                         </form>
 
@@ -123,6 +123,7 @@ export const ProductComponent = {
         /* Render Invoice Rejection Modal */
         renderInvoiceRejectionModal(document.querySelector('#rejectBtn'), document.querySelector('.rejection'), document.querySelector('#cancel'));
 
+        /* If invoice/order is accepted or rejected, it cannot be accepted or rejected again, so hide the buttons that do that */
         if (history.state.status == 100 || history.state.status == 2) {
             document.querySelector('.product-buttons').style.display = 'none';
         }
@@ -150,6 +151,11 @@ export const ProductComponent = {
             }
             history.pushState(null, null, window.location = `#/${component}`);
         })
+
+
+        /* Scroll to top button */
+        scrollToTop(document.querySelector('.scroll-up'));
+
 
     },
 }

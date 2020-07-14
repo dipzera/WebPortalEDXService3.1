@@ -6,7 +6,6 @@ async function getSentOrders(start, end) {
     try {
         const response = await fetch(sentURL);
         const data = await response.json();
-        console.log('Sent order: ', data);
         return data;
     } catch(error) {
         console.log(error);

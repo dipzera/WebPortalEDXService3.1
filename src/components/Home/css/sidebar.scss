@@ -1,10 +1,11 @@
 .sidebar {
-  width: 20%;
+  min-width: 20%;
   position: fixed;
   min-height: 100vh;
   left: 0;
   z-index: 1;
   background-color: $dark-blue;
+
 }
 
 .sidebar-inner {
@@ -12,17 +13,30 @@
 }
 
 .sidebar-inner__profile {
+  padding-top: 5rem;
   background: $black;
   text-align: center;
+  z-index: 15;
 
-  img {
-    margin-top: -3.5rem;
+  &-img {
+    max-width: 50%;
+    margin: 0 auto;
+    z-index: 10;
+    overflow: hidden;
+    img {
+      z-index: 5;
+      //margin-top: -3.5rem;
+      max-width: 100%;
+      object-fit: contain;
+    }
   }
+
+
   &-name {
+    padding-top: 3rem;
     font-size: 24px;
     color: white;
 
-    margin-top: -4rem;
     padding-bottom: .5rem;
   }
   &-title {

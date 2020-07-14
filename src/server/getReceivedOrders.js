@@ -6,7 +6,6 @@ async function getReceivedOrders(start, end) {
     try {
         const response = await fetch(receiveURL);
         const data = await response.json();
-        console.log('Received order: ', data);
         return data;
     } catch(error) {
         console.log(error);

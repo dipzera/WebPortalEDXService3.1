@@ -35,10 +35,14 @@ async function newRegistration(regForm) {
         console.log(regData);
         if (regData.ErrorCode === 0) { // No error
             emailConfirm(email, regData.TKey);
-            // regForm.reset();
-            // window.location.replace('http://localhost:5501/#/confirm');
             // TODO: create a modal pop up that tells user to confirm his email
-            document.querySelector('.confirm-modal').style.display = 'block';
+
+            document.querySelector('.register-form__btn').classList.add('charge');
+            document.querySelector('.register-form__btn').value = 'Se încarcă...';
+            setTimeout(() => {
+                document.querySelector('.register-form__btn').style.display = 'none';
+                document.querySelector('.register-form__message').classList.add('register-form__message--active');
+            }, 1500);
         } else if (regData.ErrorCode === 100) { // Company already exists
             setErrorFor(regForm.password, 'Utilizator cu aceste date deja există!');
         }

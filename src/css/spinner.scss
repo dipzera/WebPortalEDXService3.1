@@ -1,0 +1,32 @@
+#spinner {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #202428;
+
+    &.hidden {
+        animation: fadeOut .2s;
+        animation-fill-mode: forwards;
+    }
+
+    img {
+    }
+
+}
+
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+
+

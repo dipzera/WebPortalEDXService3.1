@@ -7,12 +7,18 @@
 @import "filter";
 @import "table";
 @import "product";
+@import "company-logo";
+@import "spinner";
+@import "message";
 
 /* Home Page */
 @import '../components/Home/css/header';
 @import '../components/Home/css/sidebar';
 @import '../components/Home/css/home';
 @import "../components/Home/css/flex-container.scss";
+
+/* Login page*/
+@import "../components/Login/css/login";
 
 /* Dashboard */
 @import "../components/SidebarComponent/SidebarComponents/Dashboard/css/balance";
@@ -34,6 +40,14 @@
 
 /* 404 Page */
 @import "../components/NotFound/css/not-found.scss";
+
+
+/* Recovery Page */
+@import "../components/AccountRecovery/css/recovery.scss";
+
+/* Settings */
+@import "../components/SidebarComponent/SidebarComponents/Settings/css/settings.scss";
+
 
 
 html {
@@ -64,4 +78,5 @@ h1, h2, h3, h4, h5, h6, ul, p {
   padding: 0 2rem;
   margin: 0 auto;
 }
+
 

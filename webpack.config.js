@@ -37,7 +37,7 @@ module.exports = {
                 use: ['html-loader']
             },
             {
-                test: /\.(jpeg|jpg|png|ico)$/,
+                test: /\.(jpeg|jpg|png|ico|svg|gif)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -47,7 +47,7 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
         ]
     },
     optimization: {

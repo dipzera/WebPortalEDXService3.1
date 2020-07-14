@@ -6,7 +6,6 @@ async function getReceivedInvoiceList(start, end) {
     try {
         const response = await fetch(receiveURL);
         const data = await response.json();
-        console.log('Received invoice: ', data);
         return data;
     } catch(error) {
         console.log(error);

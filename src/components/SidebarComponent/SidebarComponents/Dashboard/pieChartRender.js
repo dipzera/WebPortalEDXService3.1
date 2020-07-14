@@ -4,11 +4,13 @@ import {getReceivedInvoiceList} from "../../../../server/getReceivedInvoiceList"
 import {getSentInvoiceList} from "../../../../server/getSentInvoiceList";
 import {getReceivedOrders} from "../../../../server/getReceivedOrders";
 import {getSentOrders} from "../../../../server/getSentOrders";
+import {getCurrentMonth} from "../../../../js/util/getCurrentMonth";
 
 
 export async function pieChartRenderInvoice(ctx) {
-    const receivedInvoiceData = await getReceivedInvoiceList('2000-01-01', '2100-01-01');
-    const sentInvoiceData = await getSentInvoiceList('2000-01-01', '2100-01-01');
+    const currentMonthDate = getCurrentMonth();
+    const receivedInvoiceData = await getReceivedInvoiceList(currentMonthDate[0], currentMonthDate[1]);
+    const sentInvoiceData = await getSentInvoiceList(currentMonthDate[0], currentMonthDate[1]);
 
     /* Received Invoice */
     const pendingReceivedInvoiceSize = receivedInvoiceData.InvoiceList.filter(el => el.InvoicState === 0).length;
@@ -91,8 +93,9 @@ export async function pieChartRenderInvoice(ctx) {
 
 
 export async function pieChartRenderOrder(ctx) {
-    const receivedOrderData = await getReceivedOrders('2000-01-01', '2100-01-01');
-    const sentOrderData = await getSentOrders('2000-01-01', '2100-01-01');
+    const currentMonthDate = getCurrentMonth();
+    const receivedOrderData = await getReceivedOrders(currentMonthDate[0], currentMonthDate[1]);
+    const sentOrderData = await getSentOrders(currentMonthDate[0], currentMonthDate[1]);
 
 
     /* Received Order */

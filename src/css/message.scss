@@ -1,0 +1,42 @@
+
+.message-container {
+    z-index: 1000;
+    position: fixed;
+    right: 50%;
+    top: 3%;
+    transform: translateX(50%);
+    max-width: 350px;
+    width: 100%;
+    margin: auto;
+    background: #5DAF54;
+
+    &.hidden {
+        animation: fadeOut .8s;
+        animation-fill-mode: forwards;
+    }
+
+}
+
+.message-text {
+    color: white;
+    padding: 1.8rem;
+}
+
+.message__close-btn {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    background: transparent;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+
+}
+
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
