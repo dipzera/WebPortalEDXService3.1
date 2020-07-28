@@ -1,6 +1,10 @@
 function setSuccessFor(input) {
     const formControl = input.parentElement;
-    formControl.className = 'form__group success';
+    formControl.classList.add('success');
+    if (formControl.classList.contains('error')) {
+        formControl.classList.remove('error');
+    }
+
 }
 
 export { setSuccessFor };

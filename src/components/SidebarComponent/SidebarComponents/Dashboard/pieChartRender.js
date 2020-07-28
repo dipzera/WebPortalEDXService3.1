@@ -14,21 +14,23 @@ export async function pieChartRenderInvoice(ctx) {
 
     /* Received Invoice */
     const pendingReceivedInvoiceSize = receivedInvoiceData.InvoiceList.filter(el => el.InvoicState === 0).length;
-    const unloadedReceivedInvoiceSize = receivedInvoiceData.InvoiceList.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-    const acceptedReceivedInvoiceSize = receivedInvoiceData.InvoiceList.filter(el => el.InvoicState === 2).length;
+    const processingReceivedInvoiceSize = receivedInvoiceData.InvoiceList.filter(el => el.InvoicState === 100).length;
+    const unloadedReceivedInvoiceSize = receivedInvoiceData.InvoiceList.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+    const acceptedReceivedInvoiceSize = receivedInvoiceData.InvoiceList.filter(el => el.InvoicState === 200).length;
 
     /* Sent Invoice */
     const pendingSentInvoiceSize = sentInvoiceData.InvoiceList.filter(el => el.InvoicState === 0).length;
-    const unloadedSentInvoiceSize = sentInvoiceData.InvoiceList.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-    const acceptedSentInvoiceSize = sentInvoiceData.InvoiceList.filter(el => el.InvoicState === 2).length;
+    const processingSentInvoiceSize = sentInvoiceData.InvoiceList.filter(el => el.InvoicState === 100).length;
+    const unloadedSentInvoiceSize = sentInvoiceData.InvoiceList.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+    const acceptedSentInvoiceSize = sentInvoiceData.InvoiceList.filter(el => el.InvoicState === 200).length;
 
     const invoiceReceivedBtn = document.querySelector('#invoiceReceivedBtn');
     const invoiceSentBtn = document.querySelector('#invoiceSentBtn');
 
-    const chartReceivedData = [pendingReceivedInvoiceSize, unloadedReceivedInvoiceSize, acceptedReceivedInvoiceSize];
-    const chartSentData = [pendingSentInvoiceSize, unloadedSentInvoiceSize, acceptedSentInvoiceSize];
+    const chartReceivedData = [pendingReceivedInvoiceSize, processingReceivedInvoiceSize, unloadedReceivedInvoiceSize, acceptedReceivedInvoiceSize ];
+    const chartSentData = [pendingSentInvoiceSize, processingSentInvoiceSize, unloadedSentInvoiceSize, acceptedSentInvoiceSize ];
 
-    const chart_labels = ['Pending', 'Rejected', 'Accepted'];
+    const chart_labels = ['Pending', 'Processing', 'Rejected', 'Accepted'];
 
     const getTotal = (chart) => {
         return chart.config.data.datasets[0].data.reduce((a, b) => a + b, 0).toLocaleString('en-US').replace(',', ' ');
@@ -40,7 +42,7 @@ export async function pieChartRenderInvoice(ctx) {
             datasets: [
                 {
                     label: 'Points',
-                    backgroundColor: ['#297FB0', '#AF5457', '#43995C'],
+                    backgroundColor: ['#55D8FE', '#FFDA83', '#FF8373', '#5FE3A1'],
                     data: chartReceivedData,
                 }
             ]
@@ -100,21 +102,23 @@ export async function pieChartRenderOrder(ctx) {
 
     /* Received Order */
     const pendingReceivedOrderSize = receivedOrderData.OrderList.filter(el => el.OrderState === 0).length;
-    const unloadedReceivedOrderSize = receivedOrderData.OrderList.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-    const acceptedReceivedOrderSize = receivedOrderData.OrderList.filter(el => el.OrderState === 2).length;
+    const processingReceivedOrderSize = receivedOrderData.OrderList.filter(el => el.OrderState === 100).length;
+    const unloadedReceivedOrderSize = receivedOrderData.OrderList.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+    const acceptedReceivedOrderSize = receivedOrderData.OrderList.filter(el => el.OrderState === 200).length;
 
     /* Sent Order */
     const pendingSentOrderSize = sentOrderData.OrderList.filter(el => el.OrderState === 0).length;
-    const unloadedSentOrderSize = sentOrderData.OrderList.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-    const acceptedSentOrderSize = sentOrderData.OrderList.filter(el => el.OrderState === 2).length;
+    const processingSentOrderSize = sentOrderData.OrderList.filter(el => el.OrderState === 100).length;
+    const unloadedSentOrderSize = sentOrderData.OrderList.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+    const acceptedSentOrderSize = sentOrderData.OrderList.filter(el => el.OrderState === 200).length;
 
     const orderReceivedBtn = document.querySelector('#orderReceivedBtn');
     const orderSentBtn = document.querySelector('#orderSentBtn');
 
-    const chartReceivedData = [pendingReceivedOrderSize, unloadedReceivedOrderSize, acceptedReceivedOrderSize];
-    const chartSentData = [pendingSentOrderSize, unloadedSentOrderSize, acceptedSentOrderSize];
+    const chartReceivedData = [pendingReceivedOrderSize,processingReceivedOrderSize, unloadedReceivedOrderSize, acceptedReceivedOrderSize];
+    const chartSentData = [pendingSentOrderSize,processingSentOrderSize, unloadedSentOrderSize, acceptedSentOrderSize];
 
-    const chart_labels = ['Pending', 'Rejected', 'Accepted'];
+    const chart_labels = ['Pending','Processing', 'Rejected', 'Accepted'];
 
     const getTotal = (chart) => {
         return chart.config.data.datasets[0].data.reduce((a, b) => a + b, 0).toLocaleString('en-US').replace(',', ' ');
@@ -126,7 +130,7 @@ export async function pieChartRenderOrder(ctx) {
             datasets: [
                 {
                     label: 'Points',
-                    backgroundColor: ['#297FB0', '#AF5457', '#43995C'],
+                    backgroundColor: ['#55D8FE', '#FFDA83', '#FF8373', '#5FE3A1'],
                     data: chartReceivedData,
                 }
             ]
@@ -168,7 +172,7 @@ export async function pieChartRenderOrder(ctx) {
         chart.update();
     })
 
-    orderReceivedBtn.addEventListener('click', function() {
+    orderSentBtn.addEventListener('click', function() {
         const data = chart.config.data;
         data.datasets[0].data = chartSentData;
         chart.update();

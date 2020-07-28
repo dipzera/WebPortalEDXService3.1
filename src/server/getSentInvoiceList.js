@@ -1,5 +1,5 @@
 async function getSentInvoiceList(start, end) {
-    const sentURL = new URL('https://api.efactura.md:4445/WebPortalEDXService/json/GetSentInvoiceList?');
+    const sentURL = new URL('http://api.efactura.md:4445/WebPortalEDXService/json/GetSentInvoiceList?');
     const token = JSON.parse(localStorage.getItem('Token'));
     const params = { TKey: token, DStart: start, DEnd: end };
     sentURL.search = new URLSearchParams(params).toString();

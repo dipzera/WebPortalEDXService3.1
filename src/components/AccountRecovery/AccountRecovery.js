@@ -1,4 +1,6 @@
 import { resetPassword } from "../../server/resetPassword";
+import infrastructure from '../../img/is_logo-efactura.png';
+import passwordReset from '../../img/password-reset.svg';
 
 export const AccountRecovery = {
     render: () => {
@@ -8,7 +10,7 @@ export const AccountRecovery = {
             <div class="recovery-container form-container"> 
             <div class="recovery-wrapper form-wrapper"> 
             <form class="recovery-form form"> 
-                  <img class="" src="src/img/password-reset.svg">
+                  <img class="" src=${passwordReset}>
                   <h1 class="recovery-form__title form__title">Resetează-ți parola</h1>
                   <div class="recovery-form__group form__group">
                     <input type="email" placeholder="Introdu adresa ta de email" name="email" required>
@@ -30,11 +32,11 @@ export const AccountRecovery = {
           </div>
         </div>
         <div class="company-logo"> 
-                <img src="src/img/infrastructure.svg" width="62px;" height="50px;">
-                <div class="company-text"> 
-                    <span>powered by</span>
-                    <span>intelectsoft</span>
-                </div>
+                <img src=${infrastructure}>
+<!--                <div class="company-text"> -->
+<!--                    <span>powered by</span>-->
+<!--                    <span>intelectsoft</span>-->
+<!--                </div>-->
             </div>
       </div>
         `;

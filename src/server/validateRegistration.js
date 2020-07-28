@@ -1,5 +1,5 @@
 export async function validateRegistration(token) {
-    const validateURL = new URL('https://api.efactura.md:4445/WebPortalEDXService/json/ValidateRegistration?');
+    const validateURL = new URL('http://api.efactura.md:4445/WebPortalEDXService/json/ValidateRegistration?');
     const params = { TKey: token };
     validateURL.search = new URLSearchParams(params).toString();
     try {

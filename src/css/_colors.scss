@@ -12,14 +12,17 @@ $main-bg: #202428;
 
 /* [ Invoice/Order status color ] */
 $total: #707070;
-$pending: #297FB0;
-$confirmed: #43995C;
-$process: $red;
+$pending: #55D8FE;
+$confirmed: #5FE3A1;
+$process: #FF8373; /* REJECTED */
+$processing: #FFDA83;
 
 
 /* [ Product page table ] */
 $tablehead: #393939;
 $tablebody: #222;
 $tabletext: #fff;
+
+
 
 /* [ Buttons ] */

@@ -2,6 +2,8 @@ import { checkInputs } from '../FormValidation/checkInputs';
 import { newRegistration } from '../../server/newRegistration';
 import { getCountry } from '../../server/getCountry';
 
+import avatar from '../../img/download.png';
+import {toDataURL} from "../../js/util/logoHandler";
 
 const RegisterComponent = {
     render: () => {
@@ -104,6 +106,10 @@ const RegisterComponent = {
                     </div>
                   </div>
                   
+                  <div class="register-form__group" style="display: none;">
+                    <img class="avatar" src=${avatar}/>
+                  </div>
+                  
                   <div class="register-form__group form__group select">
                   <div>
                     <span class="register-form__select-txt">Alegeți limba</span>
@@ -136,13 +142,15 @@ const RegisterComponent = {
                     <a href="#/login">Deja ai un cont?</a>
                   </div>
                 </form>
-                
+                <div class="url"></div>
               </div>
             </div>
           </div>
       `;
     },
     newRegistration: () => {
+
+
         const regForm = document.querySelector('.register-form');
         getCountry(regForm);
         regForm.addEventListener('submit', async function(event) {

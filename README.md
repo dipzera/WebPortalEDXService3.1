@@ -20,3 +20,14 @@ install `package.json` dependencies then `npm run build`
 
 # Password Restore Component Page
 [x] ** 
+
+
+# FIX getting null Logo from server when login
+[] ** 
+
+
+# FIX Login Company Logo (remove position absolute)
+[x] ** 
+
+# Slice the insterted Commercial Name to the first SPACEBAR
+[] **

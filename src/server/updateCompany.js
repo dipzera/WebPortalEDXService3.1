@@ -1,5 +1,7 @@
 export async function updateCompany(settingsForm, body) {
-    let regUrl = new URL("https://api.efactura.md:4445/WebPortalEDXService/json/UpdateCompany");
+    let regUrl = new URL("http://api.efactura.md:4445/WebPortalEDXService/json/UpdateCompany");
+    // http://api.efactura.md:4445/WebPortalEDXService/json/UpdateCompany
+    // https://localhost:4445/WebPortalEDXService
 
     let options = {
         method: "POST",

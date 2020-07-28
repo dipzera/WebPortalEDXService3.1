@@ -3,16 +3,41 @@
   background-color: $light-gray;
   border-radius: 1rem;
   box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, .1);
+  max-width: 100%;
 }
 
 .balance__inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 3rem 4rem;
+  padding: 3rem 0;
+  @media screen and (max-width: $mobile) {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem;
+    align-items: flex-start;
+
+  }
 }
 
 .balance-item {
+  //@media screen and (max-width: $tablet) {
+  //  &:nth-child(2) {
+  //    transform: translateY(-5px);
+  //  }
+  //}
+  @media screen and (max-width: $mobile) {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:nth-child(2) {
+      transform: translateY(0);
+    }
+  }
+
   &__title {
     color: $gray;
     text-transform: uppercase;
@@ -20,6 +45,11 @@
     font-weight: 700;
     font-size: 18px;
     margin-bottom: 2rem;
+    @media screen and (max-width: $tablet) {
+      font-size: 14px;
+      margin-bottom :1rem;
+    }
+
   }
 
   &__info {
@@ -28,13 +58,31 @@
 
     img {
       margin: 0 1.5rem 0 -1rem;
+      max-width: 100%;
+      width: 55px !important;
+      height: 50px !important;
+
+      @media screen and (max-width: $tablet) {
+        width: 33px !important;
+        height: 30px !important;
+      }
+
+      @media screen and (max-width: $mobile) {
+        width: 23px !important;
+        height: 20px !important;
+      }
+
     }
+
 
     &-sum {
       font-family: "Source Sans Pro", sans-serif;
       font-size: 35px;
       font-weight: 700;
       color: $black;
+      @media screen and (max-width: $tablet) {
+        font-size: 20px;
+      }
 
     }
   }
@@ -57,6 +105,16 @@
   padding: 1.3rem 7rem;
 
   transition: transform .3s ease-in-out;
+
+  @media screen and (max-width: $tablet) {
+    font-size: 14px;
+    padding: 1rem 4rem;
+  }
+  @media screen and (max-width: $mobile) {
+    font-size: 14px;
+    margin-top: 2rem;
+  }
+
 
   &:hover {
     transform: scale(1.03);

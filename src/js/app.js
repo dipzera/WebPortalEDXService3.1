@@ -32,6 +32,10 @@ let app = document.querySelector('#app');
 
 
 
+let xhr = new XMLHttpRequest();
+xhr.open('GET', window.location.href);
+xhr.onloadend = function() { if (xhr.status == 404) { window.location = '/#/404'} }
+
 router.on('/', function() {
     app.innerHTML = HomeComponent.render(), HomeComponent.handleRedirect();
 });

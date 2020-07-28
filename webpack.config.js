@@ -2,6 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const fs = require('fs');
 const extractPlugin = new ExtractTextPlugin({
     filename: 'index.css'
 })
@@ -13,6 +14,14 @@ module.exports = {
         // publicPath: "/dist"
     },
     mode: "development",
+    // devServer: {
+    //     contentBase: './dist/',
+    //     https: {
+    //         key: fs.readFileSync('./key.pem'),
+    //         cert: fs.readFileSync('./cert.pem'),
+    //         ca: fs.readFileSync('./cert.pem')
+    //     }
+    // },
     module: {
         rules: [
             {
@@ -43,7 +52,7 @@ module.exports = {
                         loader: 'file-loader',
                         options: {
                             name: '[name].[ext]',
-                            outputPath: 'img/'
+                            outputPath: 'img/',
                         }
                     }
                 ]

@@ -5,13 +5,16 @@ import { renderInvoiceRejectionModal } from "./renderInvoiceRejectionModal";
 import {NotFoundComponent} from "../NotFound/NotFound";
 import { setInvoiceState } from "../../server/setInvoiceState";
 import { setOrderState } from "../../server/setOrderState";
-import { scrollToTop } from "./scrollToTop";
+import { scrollToTop } from "../../js/util/scrollToTop";
+
+import arrowLeft from '../../img/arrow-left.svg'
 
 import { localization } from "../../js/util/localization";
 
 let current_lang = JSON.parse(localStorage.getItem('Language'));
 
 import { checkInputs } from "../FormValidation/checkInputs";
+import {hamburgerMenuHandler} from "../../js/util/hamburgerMenuHandler";
 
 export const ProductComponent = {
     main: (component) => {
@@ -25,8 +28,22 @@ export const ProductComponent = {
             return HomeComponent.render();
         }
 
+
     },
     render: (component) => {
+        window.scrollTo({ top: 0 });
+
+        (function checkLocalStorage() {
+            if (localStorage.getItem('Token') == null) {
+                history.pushState({}, document.title, window.location = '/#/login');
+            }
+        })();
+
+        (function checkHistoryState() {
+            if (history.state === null) {
+                history.pushState({}, document.title, window.location = `/#/${component}`);
+            }
+        })();
 
         // Check what component we're in so we could manage the state of sidebar and render the correspondent table
         if (component === 'received-invoice') {
@@ -39,13 +56,15 @@ export const ProductComponent = {
             toggleButtonState(document.getElementById('sent-order'));
         }
 
+
+
         // The main page render
         const main = document.querySelector('.main');
         const html = `
             <div class="product">
                 <div class="container"> 
                 
-                    <a class="product__btn-back" id="goBack" href="#/${component}"><span><img src="src/img/arrow-left.svg"/></span>${localization[current_lang].product.header.BackButton}</a>
+                    <a class="product__btn-back" id="goBack" href="#/${component}"><span><img src=${arrowLeft} alt="Arrow left"/></span><p>${localization[current_lang].product.header.BackButton}</p></a>
                     
                     <!-- Credentials -->
                     <div class="credentials"> 
@@ -107,12 +126,13 @@ export const ProductComponent = {
 
         const invoiceComponent = component === 'received-invoice' || component === 'sent-invoice';
         const orderComponent = component === 'received-order' || component === 'sent-order';
-
+        const menuBtn = document.querySelector('.hamburger-menu');
+        const sidebar = document.querySelector('.sidebar-inner');
         /* Render table */
         try {
             renderProductTable(document.querySelector('.product-container'), history.state.dataLines, invoiceComponent, orderComponent);
         } catch(error) {
-            history.pushState(null, null, window.location = '#/404');
+            console.log(error);
         }
 
         // console.log(history.state.status, history.state.number);
@@ -124,13 +144,13 @@ export const ProductComponent = {
         renderInvoiceRejectionModal(document.querySelector('#rejectBtn'), document.querySelector('.rejection'), document.querySelector('#cancel'));
 
         /* If invoice/order is accepted or rejected, it cannot be accepted or rejected again, so hide the buttons that do that */
-        if (history.state.status == 100 || history.state.status == 2) {
+        if (history.state.status == 200 || history.state.status == 300 || history.state.status == 100) {
             document.querySelector('.product-buttons').style.display = 'none';
         }
 
         /* Accept invoice/order button */
         document.querySelector('#acceptBtn').addEventListener('click', async function() {
-            const statusAccepted = 2;
+            const statusAccepted = 200;
             if (invoiceComponent) {
                 await setInvoiceState(history.state.number, statusAccepted);
             } else if (orderComponent) {
@@ -143,7 +163,7 @@ export const ProductComponent = {
         /* Ok button confirm reject */
         document.querySelector('.rejection__form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const statusReject = 100;
+            const statusReject = 300;
             if (invoiceComponent) {
                 await setInvoiceState(history.state.number, statusReject, this.textarea.value);
             } else if (orderComponent) {
@@ -156,6 +176,8 @@ export const ProductComponent = {
         /* Scroll to top button */
         scrollToTop(document.querySelector('.scroll-up'));
 
+        /* Hamburger menu */
+        hamburgerMenuHandler(menuBtn, sidebar);
 
     },
 }

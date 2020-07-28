@@ -4,8 +4,19 @@
 }
 main.main {
   position: relative;
-  width: 80%;
+  width: 87%;
   min-height: 100vh;
   margin-left: auto;
   background-color: $light-gray;
+  @media screen and (max-width: $laptop) {
+    width: 85%;
+  }
+  @media screen and (max-width: $mobile) {
+    width: 100%;
+
+  }
 }
+
+//::-webkit-scrollbar {
+//  display: none;
+//}

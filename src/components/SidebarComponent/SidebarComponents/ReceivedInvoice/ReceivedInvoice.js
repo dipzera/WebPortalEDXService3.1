@@ -5,10 +5,15 @@ import { renderComponentTable } from "../../renderComponentTable";
 import { getCurrentMonth } from "../../../../js/util/getCurrentMonth";
 import { localization } from "../../../../js/util/localization";
 
+import arrowRight from '../../../../img/arrow-right.svg';
+import {scrollToTop} from "../../../../js/util/scrollToTop";
+
 let current_lang = JSON.parse(localStorage.getItem('Language'));
 
 export const ReceivedInvoice = {
     render: async (main) => {
+        window.scrollTo({ top: 0 });
+
         (function checkLocalStorage() {
             if (localStorage.getItem('Token') == null) {
                 history.pushState({}, document.title, window.location = '/#/login');
@@ -32,6 +37,7 @@ export const ReceivedInvoice = {
                                 <ul class="filter-item__status-list">
                                     <li class="filter-item__status-list-btn active" id="Total"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.All}</a></li>
                                     <li class="filter-item__status-list-btn" id="Pending"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Pending}</a></li>
+                                    <li class="filter-item__status-list-btn" id="Processing"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Processing}</a></li>
                                     <li class="filter-item__status-list-btn" id="Rejected"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Rejected}</a></li>
                                     <li class="filter-item__status-list-btn" id="Accepted"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Accepted}</a></li>
                                 </ul>
@@ -50,19 +56,23 @@ export const ReceivedInvoice = {
                                     <input class="filter-item__date-input" name="start" id="start" value="2000-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
                                     <label for="start">${localization[current_lang].invoice.filter.date.To}</label>
                                     <input class="filter-item__date-input" name="end" id="end" value="2030-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
-                                    <button class="filter-item__time-link" id="customToggler" type="button"><img src="src/img/arrow-right.svg" width="15px"></button>
+                                    <button class="filter-item__time-link" id="customToggler" type="button"><img src=${arrowRight} alt="Arrow right" width="15px"></button>
                                 </div>
-                                
+                                <button class="balance-item__btn filter-item__time-link" type="button" id="customToggler">Search</button>
                             </div>
                         </div>
+                        
+
                         
                     </div>
                 </div>
             </div>
+          
+
 
                 
                 <!-- Table -->
-            <div class="table__container"> 
+            <div class="table__container invoice"> 
                 <table> 
                     <thead> 
                         <tr>
@@ -78,6 +88,8 @@ export const ReceivedInvoice = {
                         <!-- Add elements from server database-->
                     </tbody>
                 </table>
+            </div>
+            <div class="scroll-up active"> 
             </div>
         `;
 
@@ -96,10 +108,7 @@ export const ReceivedInvoice = {
         await renderComponentTable(await getReceivedInvoiceList(currentMonth[0], currentMonth[1]), tableBody, component);
 
 
-
-
-
-
+        scrollToTop(document.querySelector('.scroll-up'));
 
 
 

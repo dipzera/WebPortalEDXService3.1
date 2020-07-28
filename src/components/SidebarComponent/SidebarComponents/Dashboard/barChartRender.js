@@ -5,262 +5,300 @@ import { getSentOrders } from "../../../../server/getSentOrders";
 import { getReceivedOrders } from "../../../../server/getReceivedOrders";
 import { convertDateMilliseconds } from "../../../../js/util/dateConverter";
 import { localization } from "../../../../js/util/localization";
+import { logOut } from "../../Sidebar";
 
 let current_lang = JSON.parse(localStorage.getItem('Language'));
 
 export async function barChartRenderInvoice(ctx) {
 
 
+    /*TOKEN EXPIRATION HANDLE
+    *  FIXME: fix this later, not the best approach */
+    try {
 
-    let curr = new Date();
-    let week = [];
+        let curr = new Date();
+        let week = [];
 
-    for (let i = 1; i <= 7; i++) {
-        let first = curr.getDate() - curr.getDay() + i;
-        let day = new Date(curr.setDate(first)).toISOString().slice(0, 10);
-        week.push(day)
-    }
-    const milliseconds1 = new Date(week[0]).getTime();
-    const milliseconds2 = new Date(week[1]).getTime();
-    const milliseconds3 = new Date(week[2]).getTime();
-    const milliseconds4 = new Date(week[3]).getTime();
-    const milliseconds5 = new Date(week[4]).getTime();
-    const milliseconds6 = new Date(week[5]).getTime();
-    const milliseconds7 = new Date(week[6]).getTime();
-
-
-
-
-
-    const receivedInvoiceData = await getReceivedInvoiceList(week[0], week[6]); //filteredReceivedInvoiceData goes here
-    const sentInvoiceData = await getSentInvoiceList(week[0], week[6]); //filteredReceivedInvoiceData goes here
-
-    receivedInvoiceData.InvoiceList.map(el => console.log(convertDateMilliseconds(el.Date)));
-    receivedInvoiceData.InvoiceList.map(el => console.log(convertDateMilliseconds(el.Date)));
-
-    const d1 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds2 && convertDateMilliseconds(date.Date) > milliseconds1);
-    const d2 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds3 && convertDateMilliseconds(date.Date) > milliseconds2);
-    const d3 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds4 && convertDateMilliseconds(date.Date) > milliseconds3);
-    const d4 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds5 && convertDateMilliseconds(date.Date) > milliseconds4);
-    const d5 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds6 && convertDateMilliseconds(date.Date) > milliseconds5);
-    const d6 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds7 && convertDateMilliseconds(date.Date) > milliseconds6);
-
-    const f1 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds2 && convertDateMilliseconds(date.Date) > milliseconds1);
-    const f2 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds3 && convertDateMilliseconds(date.Date) > milliseconds2);
-    const f3 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds4 && convertDateMilliseconds(date.Date) > milliseconds3);
-    const f4 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds5 && convertDateMilliseconds(date.Date) > milliseconds4);
-    const f5 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds6 && convertDateMilliseconds(date.Date) > milliseconds5);
-    const f6 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds7 && convertDateMilliseconds(date.Date) > milliseconds6);
+        for (let i = 1; i <= 7; i++) {
+            let first = curr.getDate() - curr.getDay() + i;
+            let day = new Date(curr.setDate(first)).toISOString().slice(0, 10);
+            week.push(day)
+        }
+        const milliseconds1 = new Date(week[0]).getTime();
+        const milliseconds2 = new Date(week[1]).getTime();
+        const milliseconds3 = new Date(week[2]).getTime();
+        const milliseconds4 = new Date(week[3]).getTime();
+        const milliseconds5 = new Date(week[4]).getTime();
+        const milliseconds6 = new Date(week[5]).getTime();
+        const milliseconds7 = new Date(week[6]).getTime();
 
 
+        const receivedInvoiceData = await getReceivedInvoiceList(week[0], week[6]); //filteredReceivedInvoiceData goes here
+        const sentInvoiceData = await getSentInvoiceList(week[0], week[6]); //filteredReceivedInvoiceData goes here
 
-    /* Received Invoice */
-    let pendingReceivedInvoiceSize1;
-    let unloadedReceivedInvoiceSize1;
-    let acceptedReceivedInvoiceSize1;
-    let pendingReceivedInvoiceSize2;
-    let unloadedReceivedInvoiceSize2;
-    let acceptedReceivedInvoiceSize2;
-    let pendingReceivedInvoiceSize3;
-    let unloadedReceivedInvoiceSize3;
-    let acceptedReceivedInvoiceSize3;
-    let pendingReceivedInvoiceSize4;
-    let unloadedReceivedInvoiceSize4;
-    let acceptedReceivedInvoiceSize4;
-    let pendingReceivedInvoiceSize5;
-    let unloadedReceivedInvoiceSize5;
-    let acceptedReceivedInvoiceSize5;
-    let pendingReceivedInvoiceSize6;
-    let unloadedReceivedInvoiceSize6;
-    let acceptedReceivedInvoiceSize6;
-    if ( d1.length > 0 ) {
-        pendingReceivedInvoiceSize1 = d1.filter(el => el.InvoicState === 0).length;
-        unloadedReceivedInvoiceSize1 = d1.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize1 = d1.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
 
-    if ( d2.length > 0) {
+        // receivedInvoiceData.InvoiceList.map(el => convertDateMilliseconds(el.Date));
+        // receivedInvoiceData.InvoiceList.map(el => console.log(convertDateMilliseconds(el.Date)));
+
+
+        const d1 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds2 && convertDateMilliseconds(date.Date) > milliseconds1);
+        const d2 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds3 && convertDateMilliseconds(date.Date) > milliseconds2);
+        const d3 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds4 && convertDateMilliseconds(date.Date) > milliseconds3);
+        const d4 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds5 && convertDateMilliseconds(date.Date) > milliseconds4);
+        const d5 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds6 && convertDateMilliseconds(date.Date) > milliseconds5);
+        const d6 = receivedInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds7 && convertDateMilliseconds(date.Date) > milliseconds6);
+
+        const f1 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds2 && convertDateMilliseconds(date.Date) > milliseconds1);
+        const f2 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds3 && convertDateMilliseconds(date.Date) > milliseconds2);
+        const f3 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds4 && convertDateMilliseconds(date.Date) > milliseconds3);
+        const f4 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds5 && convertDateMilliseconds(date.Date) > milliseconds4);
+        const f5 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds6 && convertDateMilliseconds(date.Date) > milliseconds5);
+        const f6 = sentInvoiceData.InvoiceList.filter(date => convertDateMilliseconds(date.Date) < milliseconds7 && convertDateMilliseconds(date.Date) > milliseconds6);
+
+
         /* Received Invoice */
-        pendingReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 0).length;
-        unloadedReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
+        let pendingReceivedInvoiceSize1;
+        let processingReceivedInvoiceSize1;
+        let unloadedReceivedInvoiceSize1;
+        let acceptedReceivedInvoiceSize1;
+        let pendingReceivedInvoiceSize2;
+        let processingReceivedInvoiceSize2;
+        let unloadedReceivedInvoiceSize2;
+        let acceptedReceivedInvoiceSize2;
+        let pendingReceivedInvoiceSize3;
+        let processingReceivedInvoiceSize3;
+        let unloadedReceivedInvoiceSize3;
+        let acceptedReceivedInvoiceSize3;
+        let pendingReceivedInvoiceSize4;
+        let processingReceivedInvoiceSize4;
+        let unloadedReceivedInvoiceSize4;
+        let acceptedReceivedInvoiceSize4;
+        let pendingReceivedInvoiceSize5;
+        let processingReceivedInvoiceSize5;
+        let unloadedReceivedInvoiceSize5;
+        let acceptedReceivedInvoiceSize5;
+        let pendingReceivedInvoiceSize6;
+        let processingReceivedInvoiceSize6;
+        let unloadedReceivedInvoiceSize6;
+        let acceptedReceivedInvoiceSize6;
+        if (d1.length > 0) {
+            pendingReceivedInvoiceSize1 = d1.filter(el => el.InvoicState === 0).length; // pending
+            processingReceivedInvoiceSize1 = d1.filter(el => el.InvoicState === 100).length; //processing
+            unloadedReceivedInvoiceSize1 = d1.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedReceivedInvoiceSize1 = d1.filter(el => el.InvoicState === 200).length; // accepted
+        } else {
+        }
 
-    if ( d3.length > 0) {
-        pendingReceivedInvoiceSize3 = d3.filter(el => el.InvoicState === 0).length;
-        unloadedReceivedInvoiceSize3 = d3.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize3 = d3.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
+        if (d2.length > 0) {
+            /* Received Invoice */
+            pendingReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 0).length; // pending
+            processingReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 100).length; //processing
+            unloadedReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 200).length; // accepted
+        } else {
+        }
 
-    if ( d4.length > 0) {
-        pendingReceivedInvoiceSize4 = d4.filter(el => el.InvoicState === 0).length;
-        unloadedReceivedInvoiceSize4 = d4.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize4 = d4.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
+        if (d3.length > 0) {
+            pendingReceivedInvoiceSize3 = d3.filter(el => el.InvoicState === 0).length; // pending
+            processingReceivedInvoiceSize3 = d3.filter(el => el.InvoicState === 100).length; //processing
+            unloadedReceivedInvoiceSize3 = d3.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedReceivedInvoiceSize3 = d3.filter(el => el.InvoicState === 200).length; // accepted
+        } else {
+        }
 
-    if ( d5.length > 0) {
-        pendingReceivedInvoiceSize5 = d5.filter(el => el.InvoicState === 0).length;
-        unloadedReceivedInvoiceSize5 = d5.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize5 = d5.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
+        if (d4.length > 0) {
+            pendingReceivedInvoiceSize4 = d4.filter(el => el.InvoicState === 0).length; // pending
+            processingReceivedInvoiceSize4 = d4.filter(el => el.InvoicState === 100).length; //processing
+            unloadedReceivedInvoiceSize4 = d4.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedReceivedInvoiceSize4 = d4.filter(el => el.InvoicState === 200).length; // accepted
+        } else {
+        }
 
-    if ( d6.length > 0) {
-        pendingReceivedInvoiceSize6 = d6.filter(el => el.InvoicState === 0).length;
-        unloadedReceivedInvoiceSize6 = d6.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize6 = d6.filter(el => el.InvoicState === 2).length;
-    } else{
-    };
+        if (d5.length > 0) {
+            pendingReceivedInvoiceSize5 = d5.filter(el => el.InvoicState === 0).length; // pending
+            processingReceivedInvoiceSize5 = d5.filter(el => el.InvoicState === 100).length; //processing
+            unloadedReceivedInvoiceSize5 = d5.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedReceivedInvoiceSize5 = d5.filter(el => el.InvoicState === 200).length; // accepted
+        } else {
+        }
 
-
-
-    /* Sent Invoice */
-    let pendingSentInvoiceSize1;
-    let unloadedSentInvoiceSize1;
-    let acceptedSentInvoiceSize1;
-    let pendingSentInvoiceSize2;
-    let unloadedSentInvoiceSize2;
-    let acceptedSentInvoiceSize2;
-    let pendingSentInvoiceSize3;
-    let unloadedSentInvoiceSize3;
-    let acceptedSentInvoiceSize3;
-    let pendingSentInvoiceSize4;
-    let unloadedSentInvoiceSize4;
-    let acceptedSentInvoiceSize4;
-    let pendingSentInvoiceSize5;
-    let unloadedSentInvoiceSize5;
-    let acceptedSentInvoiceSize5;
-    let pendingSentInvoiceSize6;
-    let unloadedSentInvoiceSize6;
-    let acceptedSentInvoiceSize6;
-    if ( d1.length > 0 ) {
-        pendingSentInvoiceSize1 = f1.filter(el => el.InvoicState === 0).length;
-        unloadedSentInvoiceSize1 = f1.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize1 = f1.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
-
-    if ( d2.length > 0) {
-        pendingSentInvoiceSize2 = f2.filter(el => el.InvoicState === 0).length;
-        unloadedSentInvoiceSize2 = f2.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize2 = f2.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
-
-    if ( d3.length > 0) {
-        pendingSentInvoiceSize3 = f3.filter(el => el.InvoicState === 0).length;
-        unloadedSentInvoiceSize3 = f3.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize3 = f3.filter(el => el.InvoicState === 2).length;
-    } else {
-    }
-
-    if ( d4.length > 0) {
-        pendingSentInvoiceSize4 = f4.filter(el => el.InvoicState === 0).length;
-        unloadedSentInvoiceSize4 = f4.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize4 = f4.filter(el => el.InvoicState === 2).length;
-    } else {
-
-    }
-
-    if ( d5.length > 0) {
-        pendingSentInvoiceSize5 = f5.filter(el => el.InvoicState === 0).length;
-        unloadedSentInvoiceSize5 = f5.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize5 = f5.filter(el => el.InvoicState === 2).length;
-    } else{
-
-    }
-    ;
-    if ( d6.length > 0) {
-        pendingSentInvoiceSize6 = f6.filter(el => el.InvoicState === 0).length;
-        unloadedSentInvoiceSize6 = f6.filter(el => el.InvoicState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize6 = f6.filter(el => el.InvoicState === 2).length;
-    } else{
-
-    }
+        if (d6.length > 0) {
+            pendingReceivedInvoiceSize6 = d6.filter(el => el.InvoicState === 0).length; // pending
+            processingReceivedInvoiceSize6 = d6.filter(el => el.InvoicState === 100).length; //processing
+            unloadedReceivedInvoiceSize6 = d6.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedReceivedInvoiceSize6 = d6.filter(el => el.InvoicState === 200).length; // accepted;
+        } else {
+        }
+        ;
 
 
+        /* Sent Invoice */
+        let pendingSentInvoiceSize1;
+        let processingSentInvoiceSize1;
+        let unloadedSentInvoiceSize1;
+        let acceptedSentInvoiceSize1;
+        let pendingSentInvoiceSize2;
+        let processingSentInvoiceSize2;
+        let unloadedSentInvoiceSize2;
+        let acceptedSentInvoiceSize2;
+        let pendingSentInvoiceSize3;
+        let processingSentInvoiceSize3;
+        let unloadedSentInvoiceSize3;
+        let acceptedSentInvoiceSize3;
+        let pendingSentInvoiceSize4;
+        let processingSentInvoiceSize4;
+        let unloadedSentInvoiceSize4;
+        let acceptedSentInvoiceSize4;
+        let pendingSentInvoiceSize5;
+        let processingSentInvoiceSize5;
+        let unloadedSentInvoiceSize5;
+        let acceptedSentInvoiceSize5;
+        let pendingSentInvoiceSize6;
+        let processingSentInvoiceSize6;
+        let unloadedSentInvoiceSize6;
+        let acceptedSentInvoiceSize6;
+        if (f1.length > 0) {
+            pendingSentInvoiceSize1 = f1.filter(el => el.InvoicState === 0).length;
+            processingSentInvoiceSize1 = f1.filter(el => el.InvoicState === 100).length;
+            unloadedSentInvoiceSize1 = f1.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedSentInvoiceSize1 = f1.filter(el => el.InvoicState === 200).length;
+        } else {
+        }
+
+        if (f2.length > 0) {
+            pendingSentInvoiceSize2 = f2.filter(el => el.InvoicState === 0).length;
+            processingSentInvoiceSize2 = f2.filter(el => el.InvoicState === 100).length;
+            unloadedSentInvoiceSize2 = f2.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedSentInvoiceSize2 = f2.filter(el => el.InvoicState === 200).length;
+        } else {
+        }
+
+        if (f3.length > 0) {
+            pendingSentInvoiceSize3 = f3.filter(el => el.InvoicState === 0).length;
+            processingSentInvoiceSize3 = f3.filter(el => el.InvoicState === 100).length;
+            unloadedSentInvoiceSize3 = f3.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedSentInvoiceSize3 = f3.filter(el => el.InvoicState === 200).length;
+        } else {
+        }
+
+        if (f4.length > 0) {
+            pendingSentInvoiceSize4 = f4.filter(el => el.InvoicState === 0).length;
+            processingSentInvoiceSize4 = f4.filter(el => el.InvoicState === 100).length;
+            unloadedSentInvoiceSize4 = f4.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedSentInvoiceSize4 = f4.filter(el => el.InvoicState === 200).length;
+        } else {
+
+        }
+
+        if (f5.length > 0) {
+            pendingSentInvoiceSize5 = f5.filter(el => el.InvoicState === 0).length;
+            processingSentInvoiceSize5 = f5.filter(el => el.InvoicState === 100).length;
+            unloadedSentInvoiceSize5 = f5.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedSentInvoiceSize5 = f5.filter(el => el.InvoicState === 200).length;
+        } else {
+
+        }
+        ;
+        if (f6.length > 0) {
+            pendingSentInvoiceSize6 = f6.filter(el => el.InvoicState === 0).length;
+            processingSentInvoiceSize6 = f6.filter(el => el.InvoicState === 100).length;
+            unloadedSentInvoiceSize6 = f6.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+            acceptedSentInvoiceSize6 = f6.filter(el => el.InvoicState === 200).length;
+        } else {
+
+        }
 
 
+        const chartDataPendingReceived = [pendingReceivedInvoiceSize1, pendingReceivedInvoiceSize2, pendingReceivedInvoiceSize3, pendingReceivedInvoiceSize4, pendingReceivedInvoiceSize5, pendingReceivedInvoiceSize6];
+        const chartDataProcessingReceived = [processingSentInvoiceSize1, processingSentInvoiceSize2, processingSentInvoiceSize3, processingSentInvoiceSize4, processingSentInvoiceSize5, processingSentInvoiceSize6];
+        const chartDataUnloadedReceived = [unloadedReceivedInvoiceSize1, unloadedReceivedInvoiceSize2, unloadedReceivedInvoiceSize3, unloadedReceivedInvoiceSize4, unloadedReceivedInvoiceSize5, unloadedReceivedInvoiceSize6];
+        const chartDataAcceptedReceived = [acceptedReceivedInvoiceSize1, acceptedReceivedInvoiceSize2, acceptedReceivedInvoiceSize3, acceptedReceivedInvoiceSize4, acceptedReceivedInvoiceSize5, acceptedReceivedInvoiceSize6];
 
-    const chartDataPendingReceived = [pendingReceivedInvoiceSize1, pendingReceivedInvoiceSize2, pendingReceivedInvoiceSize3, pendingReceivedInvoiceSize4, pendingReceivedInvoiceSize5, pendingReceivedInvoiceSize6];
-    const chartDataUnloadedReceived = [unloadedReceivedInvoiceSize1, unloadedReceivedInvoiceSize2, unloadedReceivedInvoiceSize3, unloadedReceivedInvoiceSize4, unloadedReceivedInvoiceSize5, unloadedReceivedInvoiceSize6];
-    const chartDataAcceptedReceived = [acceptedReceivedInvoiceSize1, acceptedReceivedInvoiceSize2, acceptedReceivedInvoiceSize3, acceptedReceivedInvoiceSize4, acceptedReceivedInvoiceSize5, acceptedReceivedInvoiceSize6];
+        const chartDataPendingSent = [pendingSentInvoiceSize1, pendingSentInvoiceSize2, pendingSentInvoiceSize3, pendingSentInvoiceSize4, pendingSentInvoiceSize5, pendingSentInvoiceSize6];
+        const chartDataProcessingSent = [processingSentInvoiceSize1, processingSentInvoiceSize2, processingSentInvoiceSize3, processingSentInvoiceSize4, processingSentInvoiceSize5, processingSentInvoiceSize6];
+        const chartDataUnloadedSent = [unloadedSentInvoiceSize1, unloadedSentInvoiceSize2, unloadedSentInvoiceSize3, unloadedSentInvoiceSize4, unloadedSentInvoiceSize5, unloadedSentInvoiceSize6];
+        const chartDataAcceptedSent = [acceptedSentInvoiceSize1, acceptedSentInvoiceSize2, acceptedSentInvoiceSize3, acceptedSentInvoiceSize4, acceptedSentInvoiceSize5, acceptedSentInvoiceSize6];
 
-    const chartDataPendingSent = [pendingSentInvoiceSize1, pendingSentInvoiceSize2, pendingSentInvoiceSize3, pendingSentInvoiceSize4, pendingSentInvoiceSize5, pendingSentInvoiceSize6];
-    const chartDataUnloadedSent = [unloadedSentInvoiceSize1, unloadedSentInvoiceSize2, unloadedSentInvoiceSize3, unloadedSentInvoiceSize4, unloadedSentInvoiceSize5, unloadedSentInvoiceSize6];
-    const chartDataAcceptedSent = [acceptedSentInvoiceSize1, acceptedSentInvoiceSize2, acceptedSentInvoiceSize3, acceptedSentInvoiceSize4, acceptedSentInvoiceSize5, acceptedSentInvoiceSize6];
-
-    const chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [localization[current_lang].chart.date.Monday, localization[current_lang].chart.date.Tuesday, localization[current_lang].chart.date.Wednesday, localization[current_lang].chart.date.Thursday, localization[current_lang].chart.date.Friday, localization[current_lang].chart.date.Saturday],
-            datasets: [
-                {
-                    label: 'Pending',
-                    backgroundColor: '#297FB0',
-                    data: chartDataPendingReceived
-                },
-                {
-                    label: 'Rejected',
-                    backgroundColor: '#AF5457',
-                    data: chartDataUnloadedReceived
-                },
-                {
-                    label: 'Accepted',
-                    backgroundColor: '#43995C',
-                    data: chartDataAcceptedReceived
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            barRoundness: .3,
-            barValueSpacing: 20,
-            scales: {
-                yAxes: [{
-                    gridLines: {
-                        offsetGridLines: true,
-                        display: false
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [localization[current_lang].chart.date.Monday, localization[current_lang].chart.date.Tuesday, localization[current_lang].chart.date.Wednesday, localization[current_lang].chart.date.Thursday, localization[current_lang].chart.date.Friday, localization[current_lang].chart.date.Saturday],
+                datasets: [
+                    {
+                        label: 'Pending',
+                        backgroundColor: '#55D8FE',
+                        data: chartDataPendingReceived
                     },
-                    ticks: {
-                        min: 0,
-                        padding: 0
+                    {
+                        label: 'Processing',
+                        backgroundColor: '#FFDA83',
+                        data: chartDataProcessingReceived
+                    },
+                    {
+                        label: 'Rejected',
+                        backgroundColor: '#FF8373',
+                        data: chartDataUnloadedReceived
+                    },
+                    {
+                        label: 'Accepted',
+                        backgroundColor: '#5FE3A1',
+                        data: chartDataAcceptedReceived
                     }
-                }]
+                ]
             },
-            legend: {
-                display: true,
-                position: 'bottom',
-                labels: {
-                    usePointStyle: true,
-                    padding: 20
+            options: {
+                responsive: true,
+                barRoundness: .3,
+                barValueSpacing: 20,
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            offsetGridLines: true,
+                            display: false
+                        },
+                        ticks: {
+                            min: 0,
+                            padding: 0
+                        }
+                    }]
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20
+                    }
                 }
             }
-        }
-    });
+        });
 
-    const invoiceReceivedBtn = document.querySelector('#invoiceReceivedBtn');
-    const invoiceSentBtn = document.querySelector('#invoiceSentBtn');
+        const invoiceReceivedBtn = document.querySelector('#invoiceReceivedBtn');
+        const invoiceSentBtn = document.querySelector('#invoiceSentBtn');
 
-    invoiceReceivedBtn.addEventListener('click', function() {
-        const data = chart.config.data;
-        data.datasets[0].data = chartDataPendingReceived;
-        data.datasets[1].data = chartDataUnloadedReceived;
-        data.datasets[2].data = chartDataAcceptedReceived;
-        chart.update();
-    })
+        invoiceReceivedBtn.addEventListener('click', function () {
+            const data = chart.config.data;
+            data.datasets[0].data = chartDataPendingReceived;
+            data.datasets[1].data = chartDataProcessingReceived;
+            data.datasets[2].data = chartDataUnloadedReceived;
+            data.datasets[3].data = chartDataAcceptedReceived;
+            chart.update();
+        })
 
-    invoiceSentBtn.addEventListener('click', function() {
-        const data = chart.config.data;
-        data.datasets[0].data = chartDataPendingSent;
-        data.datasets[1].data = chartDataUnloadedSent;
-        data.datasets[2].data = chartDataAcceptedSent;
-        chart.update();
-    })
+        invoiceSentBtn.addEventListener('click', function () {
+            const data = chart.config.data;
+            data.datasets[0].data = chartDataPendingSent;
+            data.datasets[1].data = chartDataProcessingReceived;
+            data.datasets[2].data = chartDataUnloadedSent;
+            data.datasets[3].data = chartDataAcceptedSent;
+            chart.update();
+        })
+
+    } catch(error) {
+        console.log(error);
+        logOut();
+        history.pushState(null, null, window.location = '/#/login');
+    }
 
 
 }
@@ -311,126 +349,150 @@ export async function barChartRenderOrder(ctx) {
 
     /* Received Order */
     let pendingReceivedInvoiceSize1;
+    let processingReceivedInvoiceSize1;
     let unloadedReceivedInvoiceSize1;
     let acceptedReceivedInvoiceSize1;
     let pendingReceivedInvoiceSize2;
+    let processingReceivedInvoiceSize2;
     let unloadedReceivedInvoiceSize2;
     let acceptedReceivedInvoiceSize2;
     let pendingReceivedInvoiceSize3;
+    let processingReceivedInvoiceSize3;
     let unloadedReceivedInvoiceSize3;
     let acceptedReceivedInvoiceSize3;
     let pendingReceivedInvoiceSize4;
+    let processingReceivedInvoiceSize4;
     let unloadedReceivedInvoiceSize4;
     let acceptedReceivedInvoiceSize4;
     let pendingReceivedInvoiceSize5;
+    let processingReceivedInvoiceSize5;
     let unloadedReceivedInvoiceSize5;
     let acceptedReceivedInvoiceSize5;
     let pendingReceivedInvoiceSize6;
+    let processingReceivedInvoiceSize6;
     let unloadedReceivedInvoiceSize6;
     let acceptedReceivedInvoiceSize6;
     if ( d1.length > 0 ) {
-        pendingReceivedInvoiceSize1 = d1.filter(el => el.OrderState === 0).length;
-        unloadedReceivedInvoiceSize1 = d1.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize1 = d1.filter(el => el.OrderState === 2).length;
+        pendingReceivedInvoiceSize1 = d1.filter(el => el.OrderState === 0).length; // pending
+        processingReceivedInvoiceSize1 = d1.filter(el => el.OrderState === 100).length; //processing
+        unloadedReceivedInvoiceSize1 = d1.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedReceivedInvoiceSize1 = d1.filter(el => el.OrderState === 200).length; // accepted
     } else {
     }
 
     if ( d2.length > 0) {
         /* Received Invoice */
-        pendingReceivedInvoiceSize2 = d2.filter(el => el.OrderState === 0).length;
-        unloadedReceivedInvoiceSize2 = d2.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize2 = d2.filter(el => el.OrderState === 2).length;
+        pendingReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 0).length; // pending
+        processingReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 100).length; //processing
+        unloadedReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 300).length; // UNLOADED = REJECTED
+        acceptedReceivedInvoiceSize2 = d2.filter(el => el.InvoicState === 200).length; // accepted
     } else {
     }
 
     if ( d3.length > 0) {
-        pendingReceivedInvoiceSize3 = d3.filter(el => el.OrderState === 0).length;
-        unloadedReceivedInvoiceSize3 = d3.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize3 = d3.filter(el => el.OrderState === 2).length;
+        pendingReceivedInvoiceSize3 = d3.filter(el => el.OrderState === 0).length; // pending
+        processingReceivedInvoiceSize3 = d3.filter(el => el.OrderState === 100).length; //processing
+        unloadedReceivedInvoiceSize3 = d3.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedReceivedInvoiceSize3 = d3.filter(el => el.OrderState === 200).length; // accepted
     } else {
     }
 
     if ( d4.length > 0) {
-        pendingReceivedInvoiceSize4 = d4.filter(el => el.OrderState === 0).length;
-        unloadedReceivedInvoiceSize4 = d4.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize4 = d4.filter(el => el.OrderState === 2).length;
+        pendingReceivedInvoiceSize4 = d4.filter(el => el.OrderState === 0).length; // pending
+        processingReceivedInvoiceSize4 = d4.filter(el => el.OrderState === 100).length; //processing
+        unloadedReceivedInvoiceSize4 = d4.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedReceivedInvoiceSize4 = d4.filter(el => el.OrderState === 200).length; // accepted
     } else {
     }
 
     if ( d5.length > 0) {
-        pendingReceivedInvoiceSize5 = d5.filter(el => el.OrderState === 0).length;
-        unloadedReceivedInvoiceSize5 = d5.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize5 = d5.filter(el => el.OrderState === 2).length;
-    } else{
+        pendingReceivedInvoiceSize5 = d5.filter(el => el.OrderState === 0).length; // pending
+        processingReceivedInvoiceSize5 = d5.filter(el => el.OrderState === 100).length; //processing
+        unloadedReceivedInvoiceSize5 = d5.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedReceivedInvoiceSize5 = d5.filter(el => el.OrderState === 200).length; // accepted
+    } else {
     }
 
     if ( d6.length > 0) {
-        pendingReceivedInvoiceSize6 = d6.filter(el => el.OrderState === 0).length;
-        unloadedReceivedInvoiceSize6 = d6.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedReceivedInvoiceSize6 = d6.filter(el => el.OrderState === 2).length;
+        pendingReceivedInvoiceSize6 = d6.filter(el => el.OrderState === 0).length; // pending
+        processingReceivedInvoiceSize6 = d6.filter(el => el.OrderState === 100).length; //processing
+        unloadedReceivedInvoiceSize6 = d6.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedReceivedInvoiceSize6 = d6.filter(el => el.OrderState === 200).length; // accepted;
     } else{
     };
 
     /* Sent Order */
     let pendingSentInvoiceSize1;
+    let processingSentInvoiceSize1;
     let unloadedSentInvoiceSize1;
     let acceptedSentInvoiceSize1;
     let pendingSentInvoiceSize2;
+    let processingSentInvoiceSize2;
     let unloadedSentInvoiceSize2;
     let acceptedSentInvoiceSize2;
     let pendingSentInvoiceSize3;
+    let processingSentInvoiceSize3;
     let unloadedSentInvoiceSize3;
     let acceptedSentInvoiceSize3;
     let pendingSentInvoiceSize4;
+    let processingSentInvoiceSize4;
     let unloadedSentInvoiceSize4;
     let acceptedSentInvoiceSize4;
     let pendingSentInvoiceSize5;
+    let processingSentInvoiceSize5;
     let unloadedSentInvoiceSize5;
     let acceptedSentInvoiceSize5;
     let pendingSentInvoiceSize6;
+    let processingSentInvoiceSize6;
     let unloadedSentInvoiceSize6;
     let acceptedSentInvoiceSize6;
-    if ( d1.length > 0 ) {
+    if ( f1.length > 0 ) {
         pendingSentInvoiceSize1 = f1.filter(el => el.OrderState === 0).length;
-        unloadedSentInvoiceSize1 = f1.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize1 = f1.filter(el => el.OrderState === 2).length;
+        processingSentInvoiceSize1 = f1.filter(el => el.OrderState === 100).length;
+        unloadedSentInvoiceSize1 = f1.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedSentInvoiceSize1 = f1.filter(el => el.OrderState === 200).length;
     } else {
     }
 
-    if ( d2.length > 0) {
+    if ( f2.length > 0) {
         pendingSentInvoiceSize2 = f2.filter(el => el.OrderState === 0).length;
-        unloadedSentInvoiceSize2 = f2.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize2 = f2.filter(el => el.OrderState === 2).length;
+        processingSentInvoiceSize2 = f2.filter(el => el.OrderState === 100).length;
+        unloadedSentInvoiceSize2 = f2.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedSentInvoiceSize2 = f2.filter(el => el.OrderState === 200).length;
     } else {
     }
 
-    if ( d3.length > 0) {
+    if ( f3.length > 0) {
         pendingSentInvoiceSize3 = f3.filter(el => el.OrderState === 0).length;
-        unloadedSentInvoiceSize3 = f3.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize3 = f3.filter(el => el.OrderState === 2).length;
+        processingSentInvoiceSize3 = f3.filter(el => el.OrderState === 100).length;
+        unloadedSentInvoiceSize3 = f3.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedSentInvoiceSize3 = f3.filter(el => el.OrderState === 200).length;
     } else {
     }
 
-    if ( d4.length > 0) {
+    if ( f4.length > 0) {
         pendingSentInvoiceSize4 = f4.filter(el => el.OrderState === 0).length;
-        unloadedSentInvoiceSize4 = f4.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize4 = f4.filter(el => el.OrderState === 2).length;
+        processingSentInvoiceSize4 = f4.filter(el => el.OrderState === 100).length;
+        unloadedSentInvoiceSize4 = f4.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedSentInvoiceSize4 = f4.filter(el => el.OrderState === 200).length;
     } else {
 
     }
 
-    if ( d5.length > 0) {
+    if ( f5.length > 0) {
         pendingSentInvoiceSize5 = f5.filter(el => el.OrderState === 0).length;
-        unloadedSentInvoiceSize5 = f5.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize5 = f5.filter(el => el.OrderState === 2).length;
+        processingSentInvoiceSize5 = f5.filter(el => el.OrderState === 100).length;
+        unloadedSentInvoiceSize5 = f5.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedSentInvoiceSize5 = f5.filter(el => el.OrderState === 200).length;
     } else{
 
     }
 
-    if ( d6.length > 0) {
+    if ( f6.length > 0) {
         pendingSentInvoiceSize6 = f6.filter(el => el.OrderState === 0).length;
-        unloadedSentInvoiceSize6 = f6.filter(el => el.OrderState === 100).length; // UNLOADED = REJECTED
-        acceptedSentInvoiceSize6 = f6.filter(el => el.OrderState === 2).length;
+        processingSentInvoiceSize6 = f6.filter(el => el.OrderState === 100).length;
+        unloadedSentInvoiceSize6 = f6.filter(el => el.OrderState === 300).length; // UNLOADED = REJECTED
+        acceptedSentInvoiceSize6 = f6.filter(el => el.OrderState === 200).length;
     } else{
 
     }
@@ -439,10 +501,12 @@ export async function barChartRenderOrder(ctx) {
 
 
     const chartDataPendingReceived = [pendingReceivedInvoiceSize1, pendingReceivedInvoiceSize2, pendingReceivedInvoiceSize3, pendingReceivedInvoiceSize4, pendingReceivedInvoiceSize5, pendingReceivedInvoiceSize6];
+    const chartDataProcessingReceived = [processingSentInvoiceSize1, processingSentInvoiceSize2, processingSentInvoiceSize3, processingSentInvoiceSize4, processingSentInvoiceSize5, processingSentInvoiceSize6];
     const chartDataUnloadedReceived = [unloadedReceivedInvoiceSize1, unloadedReceivedInvoiceSize2, unloadedReceivedInvoiceSize3, unloadedReceivedInvoiceSize4, unloadedReceivedInvoiceSize5, unloadedReceivedInvoiceSize6];
     const chartDataAcceptedReceived = [acceptedReceivedInvoiceSize1, acceptedReceivedInvoiceSize2, acceptedReceivedInvoiceSize3, acceptedReceivedInvoiceSize4, acceptedReceivedInvoiceSize5, acceptedReceivedInvoiceSize6];
 
     const chartDataPendingSent = [pendingSentInvoiceSize1, pendingSentInvoiceSize2, pendingSentInvoiceSize3, pendingSentInvoiceSize4, pendingSentInvoiceSize5, pendingSentInvoiceSize6];
+    const chartDataProcessingSent = [processingSentInvoiceSize1, processingSentInvoiceSize2, processingSentInvoiceSize3, processingSentInvoiceSize4, processingSentInvoiceSize5, processingSentInvoiceSize6];
     const chartDataUnloadedSent = [unloadedSentInvoiceSize1, unloadedSentInvoiceSize2, unloadedSentInvoiceSize3, unloadedSentInvoiceSize4, unloadedSentInvoiceSize5, unloadedSentInvoiceSize6];
     const chartDataAcceptedSent = [acceptedSentInvoiceSize1, acceptedSentInvoiceSize2, acceptedSentInvoiceSize3, acceptedSentInvoiceSize4, acceptedSentInvoiceSize5, acceptedSentInvoiceSize6];
 
@@ -453,17 +517,22 @@ export async function barChartRenderOrder(ctx) {
             datasets: [
                 {
                     label: 'Pending',
-                    backgroundColor: '#297FB0',
+                    backgroundColor: '#55D8FE',
                     data: chartDataPendingReceived
                 },
                 {
+                  label: 'Processing',
+                  backgroundColor: '#FFDA83',
+                  data: chartDataProcessingReceived
+                },
+                {
                     label: 'Rejected',
-                    backgroundColor: '#AF5457',
+                    backgroundColor: '#FF8373',
                     data: chartDataUnloadedReceived
                 },
                 {
                     label: 'Accepted',
-                    backgroundColor: '#43995C',
+                    backgroundColor: '#5FE3A1',
                     data: chartDataAcceptedReceived
                 }
             ]
@@ -500,6 +569,7 @@ export async function barChartRenderOrder(ctx) {
     orderReceivedBtn.addEventListener('click', function() {
         const data = chart.config.data;
         data.datasets[0].data = chartDataPendingReceived;
+        data.datasets[1].data = chartDataProcessingReceived;
         data.datasets[1].data = chartDataUnloadedReceived;
         data.datasets[2].data = chartDataAcceptedReceived;
         chart.update();
@@ -508,8 +578,9 @@ export async function barChartRenderOrder(ctx) {
     orderSentBtn.addEventListener('click', function() {
         const data = chart.config.data;
         data.datasets[0].data = chartDataPendingSent;
-        data.datasets[1].data = chartDataUnloadedSent;
-        data.datasets[2].data = chartDataAcceptedSent;
+        data.datasets[1].data = chartDataProcessingReceived;
+        data.datasets[2].data = chartDataUnloadedSent;
+        data.datasets[3].data = chartDataAcceptedSent;
         chart.update();
     })
 

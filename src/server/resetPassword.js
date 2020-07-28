@@ -1,5 +1,5 @@
 async function resetPassword(email) {
-    const resetURL = new URL('https://api.efactura.md:4445/WebPortalEDXService/json/ResetPassword?');
+    const resetURL = new URL('http://api.efactura.md:4445/WebPortalEDXService/json/ResetPassword?');
     const params = { Login: email };
     resetURL.search = new URLSearchParams(params).toString();
     try {

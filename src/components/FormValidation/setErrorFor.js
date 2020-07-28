@@ -5,7 +5,10 @@ function setErrorFor(input, message) {
     small.innerText = message;
 
     // Add error class
-    formControl.className = 'form__group error';
+    formControl.classList.add('error');
+    if (formControl.classList.contains('success')) {
+        formControl.classList.remove('success');
+    }
 }
 
 export { setErrorFor };

@@ -6,8 +6,7 @@
 
 .graph__inner {
   display: flex;
-
-  @media screen and (max-width: 1171px) {
+  @media screen and (max-width: $laptop) {
     flex-wrap: wrap;
   }
 }
@@ -16,19 +15,32 @@
   margin: 0 auto;
   flex-basis: 40%;
 
+
+  @media screen and (max-width: $laptop) {
+    flex-basis: 100%;
+  }
+
   &:not(:last-child) {
     border-right: 1px solid white;
     padding-right: 5rem;
+
+    @media screen and (max-width: $laptop) {
+      border-right: none;
+    }
+    @media screen and (max-width: $tablet) {
+     padding-right: 0;
+    }
   }
+
 
   &:last-child {
     padding-top: 3rem;
+
+    //@media screen and (max-width: 415px) {
+    //  display: none;
+    //}
   }
 
-  //@media screen and (max-width: 1171px) {
-  //  flex-basis: 100%;
-  //  width: 350px;
-  //}
 
 }
 
@@ -42,7 +54,7 @@
   margin-bottom: 4rem;
 
   &-title {
-    font-family: $source-sans-pro;
+    font-family: $roboto;
     font-size: 18px;
     font-weight: 700;
     text-transform: uppercase;
@@ -55,8 +67,12 @@
       background: none;
       border: 0;
 
-      font-family: $source-sans-pro;
+      font-family: $roboto;
       font-size: 16px;
+
+      @media screen and (max-width: $mobile-sm) {
+        font-size: 14px;
+      }
 
       &:hover {
         text-decoration: underline;
@@ -78,4 +94,29 @@
   }
 }
 
+
+#pieChartInvoice,
+#barChartInvoice,
+#pieChartOrder,
+#barChartOrder {
+  //max-height: 300px;
+  //min-height: 300px;
+  //min-width: 350px;
+  //
+  //@media screen and (max-width: $mobile) {
+  //  min-height: 200px;
+  //  min-width: 200px;
+  //}
+  //
+  //@media screen and (max-width: $mobile-sm) {
+  //  min-width: 100%;
+  //  min-height: 100%;
+  //}
+}
+
+#barChartInvoice,
+#barChartOrder {
+  //min-height: 191px;
+
+}
 

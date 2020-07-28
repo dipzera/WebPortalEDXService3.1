@@ -1,5 +1,5 @@
 async function updateApiKey(token) {
-    const updateApiKeyUrl = new URL('https://api.efactura.md:4445/WebPortalEDXService/json/UpdateAPIKey?');
+    const updateApiKeyUrl = new URL('http://api.efactura.md:4445/WebPortalEDXService/json/UpdateAPIKey?');
     const params = { TKey: token };
     updateApiKeyUrl.search = new URLSearchParams(params).toString();
     try {

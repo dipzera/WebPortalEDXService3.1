@@ -1,5 +1,7 @@
+import { logOut } from "../components/SidebarComponent/Sidebar";
+
 async function getReceivedInvoiceList(start, end) {
-    const receiveURL = new URL('https://api.efactura.md:4445/WebPortalEDXService/json/GetReceivedInvoiceList?');
+    const receiveURL = new URL('http://api.efactura.md:4445/WebPortalEDXService/json/GetReceivedInvoiceList?');
     const token = JSON.parse(localStorage.getItem('Token'));
     const params = { TKey: token, DStart: start, DEnd: end };
     receiveURL.search = new URLSearchParams(params).toString();

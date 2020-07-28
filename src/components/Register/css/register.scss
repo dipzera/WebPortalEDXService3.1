@@ -7,6 +7,10 @@
   display: flex;
   justify-content: space-around;
 
+
+
+
+
   span {
     margin-right: 1rem;
   }
@@ -15,6 +19,18 @@
     padding: 1rem;
   }
 
+  @media screen and (max-width: $mobile-sm) {
+
+    div {
+      text-align: center;
+    }
+
+    span {
+      margin-right: 0;
+      margin-bottom: 1.5rem;
+    }
+
+  }
 }
 
 @media screen and (max-width: 767px) {

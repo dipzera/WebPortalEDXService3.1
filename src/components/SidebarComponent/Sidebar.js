@@ -7,6 +7,27 @@ import { SentOrder } from "./SidebarComponents/SentOrder/SentOrder";
 import {NotFoundComponent} from "../NotFound/NotFound";
 import { Settings } from "./SidebarComponents/Settings/Settings";
 
+import {localization} from "../../js/util/localization";
+import {hamburgerMenuHandler} from "../../js/util/hamburgerMenuHandler";
+
+let current_lang = JSON.parse(localStorage.getItem('Language'));
+export function logOut() {
+    localStorage.removeItem('Token');
+    localStorage.removeItem('JuridicalName');
+    localStorage.removeItem('JuridicalAddress');
+    localStorage.removeItem('Bank');
+    localStorage.removeItem('VATCode');
+    localStorage.removeItem('IDNO');
+    localStorage.removeItem('Logo');
+    localStorage.removeItem('Component');
+    localStorage.removeItem('BIC');
+    localStorage.removeItem('Language');
+    localStorage.removeItem('CountryID');
+    localStorage.removeItem('IBAN');
+    localStorage.removeItem('CommercialName');
+    localStorage.removeItem('OfficeAddress');
+    localStorage.removeItem('Email')
+}
 export const Sidebar = {
     main: (component) => {
         if (component === 'received-invoice') {
@@ -36,7 +57,16 @@ export const Sidebar = {
     },
     render: () => {
         const main = document.querySelector('.main');
+        const menuBtn = document.querySelector('.hamburger-menu');
+        const sidebar = document.querySelector('.sidebar-inner');
 
+
+        // setTimeout(() => {
+        //     logOut();
+        //     history.pushState(null, null, window.location = '/#/login');
+        // }, 600000);
+
+        document.querySelector('#logOut').addEventListener('click', logOut);
         /* Here I get all the sidebar links(elements) and remove the localStorage state */
         /* FIXME [ Fix this later on, this approach is not the best and reliable one ] */
         document.querySelectorAll('.sidebar-inner__nav ul li').forEach(link => link.addEventListener('click', function() {
@@ -57,5 +87,9 @@ export const Sidebar = {
         } else if (window.location.hash === '#/settings') {
             Settings.render(main);
         }
+
+
+        /* Hamburger menu toggle on  mobile */
+        hamburgerMenuHandler(menuBtn, sidebar);
     }
 }

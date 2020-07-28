@@ -1,9 +1,19 @@
 import { setErrorFor } from '../components/FormValidation/setErrorFor';
 import { emailConfirm } from "./emailConfirm";
+import {base64toArrayBuffer, toDataURL, getBase64Image } from "../js/util/logoHandler";
+
 
 async function newRegistration(regForm) {
-    let regUrl = new URL("https://api.efactura.md:4445/WebPortalEDXService/json/NewRegistration");
-    let commName = regForm.CommercialName.value ? null : regForm.CommercialName.value = regForm.JuridicalName.value;
+
+    // let buffer = await base64toArrayBuffer(avatar);
+    // let bufferedImg = Array.from(new Uint8Array(buffer));
+    // console.log(buffer);
+    // console.log(bufferedImg);
+    let avatar = document.querySelector('.register-form__group img');
+
+    let base64 = getBase64Image(avatar);
+    let regUrl = new URL("http://api.efactura.md:4445/WebPortalEDXService/json/NewRegistration");
+    let commName = regForm.CommercialName.value === '' ? regForm.CommercialName.value = regForm.JuridicalName.value : regForm.CommercialName.value;
     let options = {
         method: "POST",
         headers: {
@@ -20,15 +30,19 @@ async function newRegistration(regForm) {
             JuridicalName: regForm.JuridicalName.value,
             JuridicalAddress: regForm.JuridicalAddress.value,
             Language: regForm.Language.value,
-            // Logo: '',
             OfficeAddress: regForm.OfficeAddress.value,
             VATCode: regForm.VATCode.value,
-            password: regForm.password.value
-        })
+            password: regForm.password.value,
+            Logo: base64
+        }),
     };
-    console.log(options.body);
+    console.log(base64);
+    // let optionsBody = JSON.parse(options.body);
+    // toDataURL(avatar, function(dataUrl) { optionsBody.Logo = dataUrl; });
     let opBody = JSON.parse(options.body);
     let email = opBody.Email;
+    console.log(options.body);
+    // toDataURL(avatar, function(dataUrl) { opBody.Logo = dataUrl; });
     try {
         const response = await fetch(regUrl, options);
         const regData = await response.json();

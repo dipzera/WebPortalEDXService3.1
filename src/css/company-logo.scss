@@ -3,12 +3,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 0;
     padding-top: 6rem;
     img {
         margin-right: .5rem;
         position: relative;
+    }
+
+    @media screen and (max-height: $mobile) and (max-width: $mobile-sm) {
+        display: none;
     }
 }
 

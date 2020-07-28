@@ -2,6 +2,7 @@ export let localization = {
     // current_language
     ro: {
         sidebar: {
+            Dashboard: 'Dashboard',
             ReceivedInvoice: "Facturi de intrare",
             SentInvoice: "Facturi de ieșire",
             ReceivedOrder: "Comenzi de intrare",
@@ -35,6 +36,7 @@ export let localization = {
                 status: {
                     All: "Toate",
                     Pending: "În așteptare",
+                    Processing: "În proces",
                     Rejected: "Respinse",
                     Accepted: "Acceptate"
                 },
@@ -47,7 +49,7 @@ export let localization = {
                 }
             },
             table: {
-                CreateDate: "Дата creării",
+                CreateDate: "Data creării",
                 Date: "Data facturii",
                 DeliveryDate: "Data livrării",
                 SenderName: "Destinatar",
@@ -59,6 +61,7 @@ export let localization = {
                 status: {
                     All: "Toate",
                     Pending: "În așteptare",
+                    Processing: "În proces",
                     Rejected: "Respinse",
                     Accepted: "Acceptate"
                 },
@@ -91,14 +94,18 @@ export let localization = {
             Email: "Email",
             Language: "Alegeți limba",
             Password: "Parola",
-            Logo: "Alegeți avatarul",
-            UpdateButton: "Actualizează",
+            Logo: "Alegeți logo-ul",
+            InputFile: "Selectați fișierul...",
+            UpdateButton: "Editează",
             ConfirmButton: "Confirmă",
             GenerateTokenButton: "Generează token",
             ChangePasswordButton: "Schimbă parola",
             ChangePasswordConfirmButton: "Confirmă",
             PasswordPlaceholder: "Introdu parola nouă",
-            FormPlaceholder: "Completați câmpul"
+            FormPlaceholder: "Completați câmpul",
+            ValidEmail: "Adaugă o adresă de e-mail validă",
+            SelectBoxRo: "Română",
+            SelectBoxRu: "Rusă"
         },
         product: {
             header: {
@@ -129,6 +136,7 @@ export let localization = {
     // current_language
     ru: {
         sidebar: {
+            Dashboard: 'Панель',
             ReceivedInvoice: "Полученные счета",
             SentInvoice: "Отправленные счета",
             ReceivedOrder: "Полученные заказы",
@@ -162,6 +170,7 @@ export let localization = {
                 status: {
                     All: "Все",
                     Pending: "В ожидании",
+                    Processing: "В процессе",
                     Rejected: "Отвергнуто",
                     Accepted: "Принято"
                 },
@@ -175,7 +184,7 @@ export let localization = {
             },
             table: {
                 CreateDate: "Дата создания",
-                Date: "Дата счета-фактуры",
+                Date: "Дата счета",
                 DeliveryDate: "Дата отправки",
                 SenderName: "Отправитель",
                 State: "Статус"
@@ -186,6 +195,7 @@ export let localization = {
                 status: {
                     All: "Все",
                     Pending: "В ожидании",
+                    Processing: "В процессе",
                     Rejected: "Отвергнуто",
                     Accepted: "Принято"
                 },
@@ -198,7 +208,7 @@ export let localization = {
                 }
             },
             table: {
-                Date: "Дата счета-фактуры",
+                Date: "Дата счета",
                 DeliveryDate: "Дата отправки",
                 SenderName: "Отправитель",
                 State: "Статус"
@@ -216,16 +226,20 @@ export let localization = {
             BIC: "BIC",
             VATCode: "Код НДС",
             Email: "Электронная почта",
+            InputFile: "Выберите файл...",
             Language: "Выберите язык",
             Logo: "Выберите аватар",
             Password: "Пароль",
-            UpdateButton: "Обновить",
+            UpdateButton: "Редактировать",
             ConfirmButton: "Подтвердить",
             GenerateTokenButton: "Генеририровать токен",
             ChangePasswordButton: "Поменять пароль",
             ChangePasswordConfirmButton: "Подтвердить",
             PasswordPlaceholder: "Введите новый пароль",
-            FormPlaceholder: "Поле не должно быть пустым"
+            FormPlaceholder: "Поле не должно быть пустым",
+            ValidEmail: "Необходимо ввести валидный E-mail",
+            SelectBoxRo: "Румынский",
+            SelectBoxRu: "Русский"
         },
         product: {
             header: {

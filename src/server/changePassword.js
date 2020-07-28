@@ -1,5 +1,5 @@
 async function changePassword(token, password) {
-    const changePasswordURL = new URL('https://api.efactura.md:4445/WebPortalEDXService/json/ChangePassword?');
+    const changePasswordURL = new URL('http://api.efactura.md:4445/WebPortalEDXService/json/ChangePassword?');
     const params = { TKey: token, NPassword: password };
     changePasswordURL.search = new URLSearchParams(params).toString();
     try {

@@ -1,11 +1,23 @@
 .recovery-container {
     max-width: 530px;
     margin: 0 auto;
+
+    @media screen and (max-height: $mobile) and (max-width: $mobile-sm) {
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 
 .recovery-wrapper {
     padding: 2.5rem 7rem 2rem;
+    @media screen and (max-height: $mobile) and (max-width: $mobile-sm) {
+        width: 100%;
+        padding: 0 3rem;
+    }
 }
 
 .recovery-form__title {

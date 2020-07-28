@@ -1,6 +1,7 @@
-import { loginRequest } from '../../server/loginRequest';
+import {loginRequest, XHRLoginRequest} from '../../server/loginRequest';
 import {setSuccessFor} from "../FormValidation/setSuccessFor";
 import {setErrorFor} from "../FormValidation/setErrorFor";
+import infrastructure from '../../img/is_logo-efactura.png';
 
 export const LoginComponent = {
     render: () => {
@@ -13,6 +14,9 @@ export const LoginComponent = {
             <form class="login-form form"> 
               <h1 class="login-form__title form__title">Conectează-te</h1>
 <!--              <h2 class="login-form__subtitle form__subtitle">Introdu mai jos e-mailul și parola ta:</h2>-->
+              <div class="login-form__message"> 
+                Adresa de e-mail sau parola introdusă nu este corectă, încercați din nou.
+              </div>
               <div class="login-form__group form__group">
                 <input type="email" placeholder="Adresă de email" name="email">
                 <div class="error-handling">
@@ -38,11 +42,11 @@ export const LoginComponent = {
           </div>
         </div>
         <div class="company-logo"> 
-        <img src="src/img/infrastructure.svg" width="62px;" height="50px;">
-        <div class="company-text"> 
-            <span>powered by</span>
-            <span>intelectsoft</span>
-        </div>
+        <img src=${infrastructure} alt="IntelectSoft Logo">
+<!--        <div class="company-text"> -->
+<!--            <span>powered by</span>-->
+<!--            <span>intelectsoft</span>-->
+<!--        </div>-->
       </div>
       </div>
     `;
@@ -53,6 +57,7 @@ export const LoginComponent = {
             event.preventDefault();
             const loginData = await loginRequest(this);
             if (loginData.ErrorCode === 0) {
+                document.querySelector('.login-form__message').classList.remove('show');
                 setSuccessFor(this.email);
                 setSuccessFor(this.password);
                 localStorage.setItem('Token', JSON.stringify(loginData.TKey));
@@ -68,12 +73,14 @@ export const LoginComponent = {
                 localStorage.setItem('OfficeAddress', JSON.stringify(loginData.Company.OfficeAddress));
                 localStorage.setItem('VATCode', JSON.stringify(loginData.Company.VATCode));
                 localStorage.setItem('CountryID', JSON.stringify(loginData.Company.CountryID));
+                localStorage.setItem('Logo', JSON.stringify(loginData.Company.Logo));
 
                 /* GO to main page if no error */
                 window.location = location.protocol + '//' + location.host + location.pathname;
             } else {
                 setErrorFor(this.email, 'Date introduse incorecte.');
                 setErrorFor(this.password, '');
+                document.querySelector('.login-form__message').classList.add('show');
             }
         });
     }

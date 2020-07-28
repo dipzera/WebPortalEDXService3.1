@@ -1,6 +1,6 @@
 export async function setInvoiceState(number, status, rejectMsg = 'test') {
     const token = JSON.parse(localStorage.getItem('Token'));
-    const invoiceStateURL = new URL('https://api.efactura.md:4445/WebPortalEDXService/json/SetInvoiceState?');
+    const invoiceStateURL = new URL('http://api.efactura.md:4445/WebPortalEDXService/json/SetInvoiceState?');
     const params = { APIKey: token, InvoiceID: number, State: status, Note: rejectMsg };
     invoiceStateURL.search = new URLSearchParams(params).toString();
     try {

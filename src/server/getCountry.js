@@ -1,7 +1,8 @@
 function getCountry(regForm) {
-    fetch('https://api.efactura.md:4445/WebPortalEDXService/json/GetCountry')
+    fetch('http://api.efactura.md:4445/WebPortalEDXService/json/GetCountry')
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             let { ErrorCode } = data;
             if (ErrorCode === 0) {
                 data.ListCountry.forEach(item => {

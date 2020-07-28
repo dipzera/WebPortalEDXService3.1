@@ -9,9 +9,13 @@ import { localization } from "../../../../js/util/localization";
 
 let current_lang = JSON.parse(localStorage.getItem('Language'));
 
+import arrowRight from '../../../../img/arrow-right.svg';
+import {scrollToTop} from "../../../../js/util/scrollToTop";
 
 export const ReceivedOrder = {
     render: async (main) => {
+        window.scrollTo({ top: 0 });
+
 
         /* [ Handle redirect ] */
         (function checkLocalStorage() {
@@ -36,10 +40,11 @@ export const ReceivedOrder = {
                         <div class="filter-item"> 
                             <div class="filter-item__status"> 
                                 <ul class="filter-item__status-list">
-                                    <li class="filter-item__status-list-btn active" id="Total"><a class="filter-item__status-text">${localization[current_lang].order.filter.status.All}</a></li>
-                                    <li class="filter-item__status-list-btn" id="Pending"><a class="filter-item__status-text">${localization[current_lang].order.filter.status.Pending}</a></li>
-                                    <li class="filter-item__status-list-btn" id="Rejected"><a class="filter-item__status-text">${localization[current_lang].order.filter.status.Rejected}</a></li>
-                                    <li class="filter-item__status-list-btn" id="Accepted"><a class="filter-item__status-text">${localization[current_lang].order.filter.status.Accepted}</a></li>
+                                     <li class="filter-item__status-list-btn active" id="Total"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.All}</a></li>
+                                    <li class="filter-item__status-list-btn" id="Pending"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Pending}</a></li>
+                                    <li class="filter-item__status-list-btn" id="Processing"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Processing}</a></li>
+                                    <li class="filter-item__status-list-btn" id="Rejected"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Rejected}</a></li>
+                                    <li class="filter-item__status-list-btn" id="Accepted"><a class="filter-item__status-text">${localization[current_lang].invoice.filter.status.Accepted}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -56,9 +61,10 @@ export const ReceivedOrder = {
                                     <input class="filter-item__date-input" name="start" id="start" value="2000-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
                                     <label for="start">${localization[current_lang].order.filter.date.To}</label>
                                     <input class="filter-item__date-input" name="end" id="end" value="2030-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
-                                    <button class="filter-item__time-link" id="customToggler" type="button"><img src="src/img/arrow-right.svg" width="15px"></button>
+                                    <button class="filter-item__time-link" id="customToggler" type="button"><img src=${arrowRight} alt="Arrow right" width="15px"></button>
                                 </div>
-                                
+                                <button class="balance-item__btn filter-item__time-link" type="button" id="customToggler">Search</button>
+
                             </div>
                         </div>
                         
@@ -67,7 +73,7 @@ export const ReceivedOrder = {
             </div>
                 
                 <!-- Table -->
-            <div class="table__container"> 
+            <div class="table__container order"> 
                 <table> 
                     <thead> 
                         <tr> 
@@ -81,6 +87,8 @@ export const ReceivedOrder = {
 
                     </tbody>
                 </table>
+            </div>
+            <div class="scroll-up active"> 
             </div>
         `;
         main.innerHTML = `${html}`;
@@ -96,6 +104,7 @@ export const ReceivedOrder = {
         await renderComponentTable(await getReceivedOrders(currentMonth[0], currentMonth[1]), tableBody, component);
 
 
+        scrollToTop(document.querySelector('.scroll-up'));
 
 
     },
