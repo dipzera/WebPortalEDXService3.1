@@ -84,6 +84,7 @@ export const LoginComponent = {
                     window.location = location.protocol + '//' + location.host + location.pathname;
                 }, 500);
             } else {
+                // handle loading 
                 document.querySelector('.login-form__btn').value = 'Se încarcă...';
                 document.querySelector('.login-form__btn').classList.add('charge');
                 setTimeout(() => {
