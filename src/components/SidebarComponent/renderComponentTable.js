@@ -16,74 +16,80 @@ export async function renderComponentTable(data, table, component) {
     try {
 
         if (component === 'received-invoice' || component === 'sent-invoice') {
-            let html = '';
-            data.InvoiceList.forEach(list => {
+            if (data.InvoiceList.length > 0) {
+                let html = '';
+                data.InvoiceList.forEach(list => {
 
-                let state = '';
-                let color = '';
-                if (list.InvoicState === 0) {
-                    state = 'Pending';
-                    color = "#55D8FE";
-                } else if (list.InvoicState === 300) {
-                    state = 'Rejected';
-                    color = '#FF8373';
-                } else if (list.InvoicState === 200) {
-                    state = 'Accepted';
-                    color = '#5FE3A1';
-                } else if (list.InvoicState === 100) {
-                    state = 'Processing';
-                    color = '#FFDA83';
-                }
+                    let state = '';
+                    let color = '';
+                    if (list.InvoicState === 0) {
+                        state = 'Pending';
+                        color = "#55D8FE";
+                    } else if (list.InvoicState === 300) {
+                        state = 'Rejected';
+                        color = '#FF8373';
+                    } else if (list.InvoicState === 200) {
+                        state = 'Accepted';
+                        color = '#5FE3A1';
+                    } else if (list.InvoicState === 100) {
+                        state = 'Processing';
+                        color = '#FFDA83';
+                    }
 
 
-                const listLines = JSON.stringify(list.Lines);
-                html += `
-            <tr class="table__row ${state}" data-href="/product" data-status="${list.InvoicState}" data-sendername="${list.SenderName}" data-invoicenumber="${list.Number}" data-date="${convertDate(list.Date)}" data-deliverydate="${convertDate(list.DeliveryDate)}" data-number="${list.InvoicID}" data-lines='${listLines.replace(/'/g, "~")}'>
-                <td><span class="status" style="background: ${color};">${list.Number}</span></td>
-                <td class="date">${convertDateWithHour(list.CreateDate).split(' ')[0]}<span class="hour"><img src=${clock} alt="Clock">${convertDateWithHour(list.CreateDate).split(' ')[1]}</span></td>
-                <td>${convertDate(list.Date)}</td>
-                <td>${convertDate(list.DeliveryDate)}</td>
-                <td class="sender">${list.SenderName}</td>
-                <td>${state}</td>
-            </tr>
-        `;
-            });
-            table.innerHTML = html;
+                    const listLines = JSON.stringify(list.Lines);
+                    html += `
+                        <tr class="table__row ${state}" data-href="/product" data-status="${list.InvoicState}" data-sendername="${list.SenderName}" data-invoicenumber="${list.Number}" data-date="${convertDate(list.Date)}" data-deliverydate="${convertDate(list.DeliveryDate)}" data-number="${list.InvoicID}" data-lines='${listLines.replace(/'/g, "~")}'>
+                            <td><span class="status" style="background: ${color};">${list.Number}</span></td>
+                            <td class="date">${convertDateWithHour(list.CreateDate).split(' ')[0]}<span class="hour"><img src=${clock} alt="Clock">${convertDateWithHour(list.CreateDate).split(' ')[1]}</span></td>
+                            <td>${convertDate(list.Date)}</td>
+                            <td>${convertDate(list.DeliveryDate)}</td>
+                            <td class="sender">${list.SenderName}</td>
+                            <td>${state}</td>
+                        </tr>
+                    `;
+                });
+                table.innerHTML = html;
+            } else {
+                console.log('empty');
+            }
 
         } else if (component === 'received-order' || component === 'sent-order') {
-            let html = '';
-            data.OrderList.forEach(list => {
+            if (data.OrderList.length > 0) {
+                let html = '';
+                data.OrderList.forEach(list => {
 
-                let state = '';
-                let color = '';
-                if (list.OrderState === 0) {
-                    state = 'Pending';
-                    color = "#55D8FE";
-                } else if (list.OrderState === 300) {
-                    state = 'Rejected';
-                    color = '#FF8373';
-                } else if (list.OrderState === 200) {
-                    state = 'Accepted';
-                    color = '#5FE3A1';
-                } else if (list.OrderState === 100) {
-                    state = 'Processing';
-                    color = '#FFDA83';
-                }
-
-
-                const listLines = JSON.stringify(list.Lines);
-                html += `
-                <tr class="table__row ${state}" data-href="/product" data-status="${list.OrderState}" data-sendername="${list.SenderName}" data-invoicenumber="${list.Number}" data-number="${list.OrderState}" data-date="${convertDate(list.Date)}" data-deliverydate="${convertDate(list.DeliveryDate)}" data-lines='${listLines.replace(/'/g, "\~")}'>
-                    <td><span class="status" style="background-color: ${color};">${list.Number}</span></td>
-                    <td class="date">${convertDate(list.Date)}</td>
-                    <td>${convertDate(list.DeliveryDate)}</td>
-                    <td>${state}</td>
-                </tr>
-            `;
-            })
-            table.innerHTML = html;
+                    let state = '';
+                    let color = '';
+                    if (list.OrderState === 0) {
+                        state = 'Pending';
+                        color = "#55D8FE";
+                    } else if (list.OrderState === 300) {
+                        state = 'Rejected';
+                        color = '#FF8373';
+                    } else if (list.OrderState === 200) {
+                        state = 'Accepted';
+                        color = '#5FE3A1';
+                    } else if (list.OrderState === 100) {
+                        state = 'Processing';
+                        color = '#FFDA83';
+                    }
 
 
+                    const listLines = JSON.stringify(list.Lines);
+                    html += `
+                        <tr class="table__row ${state}" data-href="/product" data-status="${list.OrderState}" data-sendername="${list.SenderName}" data-invoicenumber="${list.Number}" data-number="${list.OrderState}" data-date="${convertDate(list.Date)}" data-deliverydate="${convertDate(list.DeliveryDate)}" data-lines='${listLines.replace(/'/g, "\~")}'>
+                            <td><span class="status" style="background-color: ${color};">${list.Number}</span></td>
+                            <td class="date">${convertDate(list.Date)}</td>
+                            <td>${convertDate(list.DeliveryDate)}</td>
+                            <td>${state}</td>
+                        </tr>
+                    `;
+                })
+                table.innerHTML = html;
+            } else {
+                console.log('empty');
+            }
         }
         document.querySelectorAll('.table__container table tbody tr').forEach(row => row.addEventListener('click', function () {
             const dataLines = JSON.parse(this.dataset.lines.replace(/~/g, "\'"));

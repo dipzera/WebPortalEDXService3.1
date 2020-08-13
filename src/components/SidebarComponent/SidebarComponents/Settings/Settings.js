@@ -156,7 +156,7 @@ export const Settings = {
                         <div class="settings-group__col">
                             <div class="settings-group"> 
                                 <div class="settings-group__title">Token</div>
-                                <input id="token" type="text" class="settings-group__input" value="${JSON.parse(localStorage.getItem('Token'))}" disabled/>
+                                <input id="token" type="text" class="settings-group__input" value="${JSON.parse(localStorage.getItem('APIKey'))}" disabled/>
                                 <button id="updateAPIKeyButton" class="settings-group__input-change" type="button">${localization[current_lang].settings.GenerateTokenButton}</button>
                             </div>
                             

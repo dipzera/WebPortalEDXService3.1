@@ -88,14 +88,14 @@
 
     .fa-exclamation-circle, .fa-check-circle {
         position: absolute;
-        top: -50px;
+        top: -55px;
         right: 10px;
         visibility: hidden;
     }
 
     small {
         position: absolute;
-        bottom: 36px;
+        bottom: 40px;
         right: 40px;
         visibility: hidden;
         @media screen and (max-width: 565px) {
@@ -152,6 +152,8 @@ input[type=password]{
     border: 1px solid $light-green;
     cursor: pointer;
     width: 100%;
+
+
 
 }
 

@@ -358,6 +358,7 @@ export const Dashboard = {
         const currentMonthDate = getCurrentMonth();
         (async function renderData() {
             const receivedInvoiceData = await getReceivedInvoiceList(currentMonthDate[0], currentMonthDate[1]);
+
             const sentInvoiceData = await getSentInvoiceList(currentMonthDate[0], currentMonthDate[1]);
             const receivedOrderData = await getReceivedOrders(currentMonthDate[0], currentMonthDate[1]);
             const sentOrderData = await getSentOrders(currentMonthDate[0], currentMonthDate[1]);

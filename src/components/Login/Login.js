@@ -32,7 +32,7 @@ export const LoginComponent = {
                   <button type="button" class="password-toggle" name="checkbox"><i class="fas fa-eye"></i></button>
                 </div>
               </div>
-              <input class="form__btn" type="submit" value="Logare">
+              <input class="login-form__btn form__btn" type="submit" value="Logare">
               
               <div class="login-form__footer form__footer">
                 <a href="#/password-restore">Ai uitat parola?</a>
@@ -56,31 +56,44 @@ export const LoginComponent = {
         logForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             const loginData = await loginRequest(this);
-            if (loginData.ErrorCode === 0) {
-                document.querySelector('.login-form__message').classList.remove('show');
-                setSuccessFor(this.email);
-                setSuccessFor(this.password);
-                localStorage.setItem('Token', JSON.stringify(loginData.TKey));
-                localStorage.setItem('CommercialName', JSON.stringify(loginData.Company.CommercialName));
-                localStorage.setItem('BIC', JSON.stringify(loginData.Company.BIC));
-                localStorage.setItem('Bank', JSON.stringify(loginData.Company.Bank));
-                localStorage.setItem('Email', JSON.stringify(loginData.Company.Email));
-                localStorage.setItem('IBAN', JSON.stringify(loginData.Company.IBAN));
-                localStorage.setItem('IDNO', JSON.stringify(loginData.Company.IDNO));
-                localStorage.setItem('JuridicalAddress', JSON.stringify(loginData.Company.JuridicalAddress));
-                localStorage.setItem('JuridicalName', JSON.stringify(loginData.Company.JuridicalName));
-                localStorage.setItem('Language', JSON.stringify(loginData.Company.Language));
-                localStorage.setItem('OfficeAddress', JSON.stringify(loginData.Company.OfficeAddress));
-                localStorage.setItem('VATCode', JSON.stringify(loginData.Company.VATCode));
-                localStorage.setItem('CountryID', JSON.stringify(loginData.Company.CountryID));
-                localStorage.setItem('Logo', JSON.stringify(loginData.Company.Logo));
 
-                /* GO to main page if no error */
-                window.location = location.protocol + '//' + location.host + location.pathname;
+            if (loginData.ErrorCode === 0) {
+                /* Emulate loading */
+                document.querySelector('.login-form__btn').value = 'Se încarcă...';
+                document.querySelector('.login-form__btn').classList.add('charge');
+                setTimeout(() => {
+                    document.querySelector('.login-form__message').classList.remove('show');
+                    setSuccessFor(this.email);
+                    setSuccessFor(this.password);
+                    localStorage.setItem('Token', JSON.stringify(loginData.TKey));
+                    localStorage.setItem('CommercialName', JSON.stringify(loginData.Company.CommercialName));
+                    localStorage.setItem('BIC', JSON.stringify(loginData.Company.BIC));
+                    localStorage.setItem('Bank', JSON.stringify(loginData.Company.Bank));
+                    localStorage.setItem('Email', JSON.stringify(loginData.Company.Email));
+                    localStorage.setItem('IBAN', JSON.stringify(loginData.Company.IBAN));
+                    localStorage.setItem('IDNO', JSON.stringify(loginData.Company.IDNO));
+                    localStorage.setItem('JuridicalAddress', JSON.stringify(loginData.Company.JuridicalAddress));
+                    localStorage.setItem('JuridicalName', JSON.stringify(loginData.Company.JuridicalName));
+                    localStorage.setItem('Language', JSON.stringify(loginData.Company.Language));
+                    localStorage.setItem('OfficeAddress', JSON.stringify(loginData.Company.OfficeAddress));
+                    localStorage.setItem('VATCode', JSON.stringify(loginData.Company.VATCode));
+                    localStorage.setItem('CountryID', JSON.stringify(loginData.Company.CountryID));
+                    localStorage.setItem('Logo', JSON.stringify(loginData.Company.Logo));
+                    localStorage.setItem('APIKey', JSON.stringify(loginData.Company.APIKey))
+                    /* GO to main page if no error */
+                    window.location = location.protocol + '//' + location.host + location.pathname;
+                }, 500);
             } else {
-                setErrorFor(this.email, 'Date introduse incorecte.');
-                setErrorFor(this.password, '');
-                document.querySelector('.login-form__message').classList.add('show');
+                document.querySelector('.login-form__btn').value = 'Se încarcă...';
+                document.querySelector('.login-form__btn').classList.add('charge');
+                setTimeout(() => {
+                    document.querySelector('.login-form__btn').value = 'Logare';
+                    document.querySelector('.login-form__btn').classList.remove('charge');
+                    setErrorFor(this.email, 'Date introduse incorecte.');
+                    setErrorFor(this.password, '');
+                    document.querySelector('.login-form__message').classList.add('show');
+                }, 500);
+
             }
         });
     }

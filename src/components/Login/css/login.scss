@@ -42,3 +42,11 @@
         display: block;
     }
 }
+
+.login-form__btn {
+    &.charge {
+        background: #ccc;
+        color: #424346;
+        border-color: #ccc;
+    }
+}

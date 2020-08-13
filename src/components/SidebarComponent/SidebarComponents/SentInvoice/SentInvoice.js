@@ -3,12 +3,13 @@ import {getSentInvoiceList} from "../../../../server/getSentInvoiceList";
 import { convertDate, convertDateWithHour   } from "../../../../js/util/dateConverter";
 import { renderComponentTable } from "../../renderComponentTable";
 import {getReceivedOrders} from "../../../../server/getReceivedOrders";
-import { getCurrentMonth } from "../../../../js/util/getCurrentMonth";
+import {getCurrentMonth, getCurrentMonthWithZeroes} from "../../../../js/util/getCurrentMonth";
 import {getReceivedInvoiceList} from "../../../../server/getReceivedInvoiceList";
 
 import { localization } from "../../../../js/util/localization";
 
 let current_lang = JSON.parse(localStorage.getItem('Language'));
+const currentMonthWithZeroes = getCurrentMonthWithZeroes();
 
 import arrowRight from '../../../../img/arrow-right.svg';
 import {scrollToTop} from "../../../../js/util/scrollToTop";
@@ -57,12 +58,12 @@ export const SentInvoice = {
                                     <li id="custom" class="filter-item__time-link"><a>${localization[current_lang].invoice.filter.date.Custom}</a></li>
                                 </ul>
                                 <div class="filter-item__date" > 
-                                    <input class="filter-item__date-input" name="start" id="start" value="2000-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
+                                    <input class="filter-item__date-input" name="start" id="start" value=${currentMonthWithZeroes[0].toString()} min="2000-01-01" max="2030-01-01" type="date"/>
                                     <label for="start">${localization[current_lang].invoice.filter.date.To}</label>
-                                    <input class="filter-item__date-input" name="end" id="end" value="2030-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
+                                    <input class="filter-item__date-input" name="end" id="end" value=${currentMonthWithZeroes[1].toString()} min="2000-01-01" max="2030-01-01" type="date"/>
                                     <button class="filter-item__time-link" id="customToggler" type="button"><img src=${arrowRight} alt="Arrow right" width="15px"></button>
                                 </div>
-                                <button class="balance-item__btn filter-item__time-link" type="button" id="customToggler">Search</button>
+                                <button class="balance-item__btn filter-item__time-link" type="button" id="customToggler">${localization[current_lang].search}</button>
 
                             </div>
                         </div>

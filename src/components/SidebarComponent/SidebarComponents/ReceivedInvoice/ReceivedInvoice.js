@@ -4,11 +4,14 @@ import { convertDate, convertDateWithHour } from "../../../../js/util/dateConver
 import { renderComponentTable } from "../../renderComponentTable";
 import { getCurrentMonth } from "../../../../js/util/getCurrentMonth";
 import { localization } from "../../../../js/util/localization";
+import { getCurrentMonthWithZeroes } from "../../../../js/util/getCurrentMonth";
 
 import arrowRight from '../../../../img/arrow-right.svg';
 import {scrollToTop} from "../../../../js/util/scrollToTop";
 
 let current_lang = JSON.parse(localStorage.getItem('Language'));
+const currentMonth = getCurrentMonth();
+const currentMonthWithZeroes = getCurrentMonthWithZeroes();
 
 export const ReceivedInvoice = {
     render: async (main) => {
@@ -53,12 +56,12 @@ export const ReceivedInvoice = {
                                     <li id="custom" class="filter-item__time-link"><a>${localization[current_lang].invoice.filter.date.Custom}</a></li>
                                 </ul>
                                 <div class="filter-item__date" > 
-                                    <input class="filter-item__date-input" name="start" id="start" value="2000-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
+                                    <input class="filter-item__date-input" name="start" id="start" value=${currentMonthWithZeroes[0].toString()} min="2000-01-01" max="2030-01-01" type="date"/>
                                     <label for="start">${localization[current_lang].invoice.filter.date.To}</label>
-                                    <input class="filter-item__date-input" name="end" id="end" value="2030-01-01" min="2000-01-01" max="2030-01-01" type="date"/>
+                                    <input class="filter-item__date-input" name="end" id="end" value=${currentMonthWithZeroes[1].toString()} min="2000-01-01" max="2030-01-01" type="date"/>
                                     <button class="filter-item__time-link" id="customToggler" type="button"><img src=${arrowRight} alt="Arrow right" width="15px"></button>
                                 </div>
-                                <button class="balance-item__btn filter-item__time-link" type="button" id="customToggler">Search</button>
+                                <button class="balance-item__btn filter-item__time-link" type="button" id="customToggler">${localization[current_lang].search}</button>
                             </div>
                         </div>
                         
@@ -97,7 +100,6 @@ export const ReceivedInvoice = {
         main.innerHTML = `${html}`;
 
         const link = document.querySelector('#received-invoice');
-        const currentMonth = getCurrentMonth();
         const tableBody = document.querySelector('table tbody');
         const component = link.id;
 

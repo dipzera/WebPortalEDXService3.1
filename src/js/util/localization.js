@@ -131,7 +131,8 @@ export let localization = {
                 AcceptButton: "Trimite",
                 DenyButton: "Renunță"
             }
-        }
+        },
+        search: 'Caută'
     },
     // current_language
     ru: {
@@ -246,8 +247,8 @@ export let localization = {
                 BackButton: "Назад",
                 SenderName: "Отправитель",
                 DeliveryDate: "Дата отправки",
-                Number: "Номер счета-фактуры",
-                Date: "Дата счета-фактуры",
+                Number: "Номер счета",
+                Date: "Дата счета",
                 AcceptButton: "Подтвердить",
                 DenyButton: "Отклонить"
             },
@@ -265,6 +266,7 @@ export let localization = {
                 AcceptButton: "Отправить",
                 DenyButton: "Отмена"
             }
-        }
+        },
+        search: 'Поиск'
     }
 }

@@ -1,12 +1,12 @@
 import { resetPassword } from "../../server/resetPassword";
 import infrastructure from '../../img/is_logo-efactura.png';
 import passwordReset from '../../img/password-reset.svg';
+import {setErrorFor} from "../FormValidation/setErrorFor"
 
 export const AccountRecovery = {
     render: () => {
         return `
            <div class="recovery-body form-body">
-           
             <div class="recovery-container form-container"> 
             <div class="recovery-wrapper form-wrapper"> 
             <form class="recovery-form form"> 
@@ -16,7 +16,7 @@ export const AccountRecovery = {
                     <input type="email" placeholder="Introdu adresa ta de email" name="email" required>
                     <div class="error-handling">
                       <i class="fas fa-exclamation-circle"></i>
-                      <small class="error" style="display: none;">Error message</small>
+                      <small class="error">Error message</small>
                     </div>
                   </div>
                   <input class="recovery-form__btn form__btn" type="submit" value="Trimite email resetare" name="button">
@@ -54,6 +54,8 @@ export const AccountRecovery = {
                     document.querySelector('.recovery-form__btn').style.display = 'none';
                     document.querySelector('.recovery-form__message').classList.add('recovery-form__message--active');
                 }, 1000);
+            } else {
+                setErrorFor(this.email, 'Date introduse incorecte!')
             }
         })
     }

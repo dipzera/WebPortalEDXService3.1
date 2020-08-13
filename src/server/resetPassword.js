@@ -5,7 +5,6 @@ async function resetPassword(email) {
     try {
         const response = await fetch(resetURL);
         const data = await response.json();
-        console.log('Received invoice: ', data);
         return data;
     } catch(error) {
         console.log(error);

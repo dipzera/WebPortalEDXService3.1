@@ -44,7 +44,7 @@ export const HomeComponent = {
                         <div class="sidebar-inner__profile-img"> 
                             <img src="${JSON.parse(localStorage.getItem('Logo'))}" class="avatar" alt="Avatar">
                         </div>
-                        <div class="sidebar-inner__profile-name">${JSON.parse(localStorage.getItem('CommercialName'))}</div>
+                        <p class="sidebar-inner__profile-name">${JSON.parse(localStorage.getItem('CommercialName'))}</p>
 <!--                        <div class="sidebar-inner__profile-title">Admin<span class="level">level 1</span></div>-->
                       </div>
                       
