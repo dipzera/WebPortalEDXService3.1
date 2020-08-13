@@ -1,5 +1,5 @@
 # WebPortalEDXService
-Electronic invoicing Single Page Vanilla Javascript Application
+Electronic invoicing Single Page Vanilla JavaScript Application
 
 `npm run build` for running webpack dev server
 
