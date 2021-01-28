@@ -1,4 +1,4 @@
-# WebPortalEDXService (old version)
+# WebPortalEDXService
 Electronic invoicing Single Page Vanilla JavaScript Application
 
 `npm run build` for running webpack dev server
